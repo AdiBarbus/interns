@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\AppContext.cs" />
-    <Compile Include="EntitiesConfig\UserConfiguration.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Advertisment.cs" />
     <Compile Include="Entities\Domain.cs" />
@@ -58,9 +57,9 @@
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\SubDomain.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201903051439304_InitialMigration.cs" />
-    <Compile Include="Migrations\201903051439304_InitialMigration.Designer.cs">
-      <DependentUpon>201903051439304_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201903051531472_InitialMigration.cs" />
+    <Compile Include="Migrations\201903051531472_InitialMigration.Designer.cs">
+      <DependentUpon>201903051531472_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,8 +79,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903051439304_InitialMigration.resx">
-      <DependentUpon>201903051439304_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903051531472_InitialMigration.resx">
+      <DependentUpon>201903051531472_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

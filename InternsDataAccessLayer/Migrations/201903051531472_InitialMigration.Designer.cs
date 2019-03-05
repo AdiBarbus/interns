@@ -13,7 +13,7 @@ namespace InternsDataAccessLayer.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201903051439304_InitialMigration"; }
+            get { return "201903051531472_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source

@@ -10,7 +10,6 @@ namespace InternsDataAccessLayer.Entities
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }
-        public virtual Domain Domain { get; set; }
         public virtual ICollection<Advertisment> Advertisments { get; set; }
         public virtual ICollection<QA> QAs { get; set; }
     }

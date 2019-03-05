@@ -11,7 +11,6 @@ namespace InternsDataAccessLayer.Entities
         [Required]
         public string Name { get; set; }
         public User User { get; set; }
-        public int SubDomainId { get; set; }
         public ICollection<SubDomain> SubDomains { get; set; }
         public ICollection<Advertisment> Advertisments { get; set; }
     }

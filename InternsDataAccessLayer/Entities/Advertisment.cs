@@ -18,5 +18,6 @@ namespace InternsDataAccessLayer.Entities
         [Required]
         public string City { get; set; }
         public virtual ICollection<QA> QAs { get; set; }
+        public User User { get; set; }
     }
 }
