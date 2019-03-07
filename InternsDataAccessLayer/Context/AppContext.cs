@@ -7,7 +7,8 @@ namespace InternsDataAccessLayer.Context
     {
         public AppContext() : base("AppContext")
         {
-            Database.SetInitializer<AppContext>(new CreateDatabaseIfNotExists<AppContext>());
+            //Database.SetInitializer<AppContext>(new CreateDatabaseIfNotExists<AppContext>());
+            //Configuration.ProxyCreationEnabled = false;
         }
 
         public DbSet<User> Users { get; set; }

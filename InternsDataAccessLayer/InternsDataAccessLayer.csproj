@@ -57,30 +57,33 @@
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\SubDomain.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201903051531472_InitialMigration.cs" />
-    <Compile Include="Migrations\201903051531472_InitialMigration.Designer.cs">
-      <DependentUpon>201903051531472_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201903071209587_CompletedRepositories.cs" />
+    <Compile Include="Migrations\201903071209587_CompletedRepositories.Designer.cs">
+      <DependentUpon>201903071209587_CompletedRepositories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\IGenericRepository.cs" />
+    <Compile Include="Migrations\201903061257489_Initial.cs" />
+    <Compile Include="Migrations\201903061257489_Initial.Designer.cs">
+      <DependentUpon>201903061257489_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IRepository\IUserRepositoryy.cs" />
+    <Compile Include="Repository\CustomRepository.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="IRepository\UserRepositoryy.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IRepository\" />
-    <Folder Include="Repository\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\InternsBusiness\InternsBusiness.csproj">
-      <Project>{442b657d-6360-4ca9-8d7f-0a223764daec}</Project>
-      <Name>InternsBusiness</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903051531472_InitialMigration.resx">
-      <DependentUpon>201903051531472_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903061257489_Initial.resx">
+      <DependentUpon>201903061257489_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903071209587_CompletedRepositories.resx">
+      <DependentUpon>201903071209587_CompletedRepositories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -48,11 +48,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\AddressBll.cs" />
+    <Compile Include="Business\IAddressBll.cs" />
+    <Compile Include="Business\IRoleBll.cs" />
+    <Compile Include="Business\IUserBll.cs" />
+    <Compile Include="Business\RoleBll.cs" />
+    <Compile Include="Business\UserBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InternsDataAccessLayer\InternsDataAccessLayer.csproj">
+      <Project>{a517b608-ad45-4780-9ac2-8b76831fd925}</Project>
+      <Name>InternsDataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
