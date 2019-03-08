@@ -1,15 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace InternsDataAccessLayer.Entities
 {
-    public class Domain
+    public class Domain : BaseClass
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public IQueryable<SubDomain> SubDomains { get; set; }
+        public ICollection<SubDomain> SubDomains { get; set; }
     }
 }

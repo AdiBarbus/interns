@@ -25,8 +25,8 @@ namespace InternsMVC
             builder.RegisterModelBinderProvider();
 
             //Insert injections here
-            builder.RegisterType<AddressRepository>().As<IAddressRepository>();
-            builder.RegisterType<AdvertismentRepository>().As<IAdvertismentRepository>();
+            //builder.RegisterType<AddressRepository>().As<IAddressRepository>();
+            builder.RegisterType<AdvertiseRepository>().As<IAdvertiseRepository>();
             builder.RegisterType<DomainRepository>().As<IDomainRepository>();
             builder.RegisterType<QaRepository>().As<IQaRepository>();
             builder.RegisterType<RoleRepository>().As<IRoleRepository>();
@@ -35,7 +35,7 @@ namespace InternsMVC
 
             builder.RegisterType<UserBll>().As<IUserBll>();
             builder.RegisterType<RoleBll>().As<IRoleBll>();
-            builder.RegisterType<AddressBll>().As<IAddressBll>();
+           // builder.RegisterType<AddressBll>().As<IAddressBll>();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

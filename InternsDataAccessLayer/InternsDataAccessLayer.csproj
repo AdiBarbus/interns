@@ -37,6 +37,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GenericRepository, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GenericRepository.0.2.1.0\lib\net40\GenericRepository.dll</HintPath>
+    </Reference>
+    <Reference Include="GenericRepository.EF, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GenericRepository.EF.0.2.1.0\lib\net40\GenericRepository.EF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -51,21 +57,34 @@
   <ItemGroup>
     <Compile Include="Context\AppContext.cs" />
     <Compile Include="Entities\Address.cs" />
-    <Compile Include="Entities\Advertisment.cs" />
+    <Compile Include="Entities\Advertise.cs" />
+    <Compile Include="Entities\BaseClass.cs" />
     <Compile Include="Entities\Domain.cs" />
     <Compile Include="Entities\QA.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\SubDomain.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201903071209587_CompletedRepositories.cs" />
-    <Compile Include="Migrations\201903071209587_CompletedRepositories.Designer.cs">
-      <DependentUpon>201903071209587_CompletedRepositories.cs</DependentUpon>
+    <Compile Include="Migrations\201903080714152_Initial.cs" />
+    <Compile Include="Migrations\201903080714152_Initial.Designer.cs">
+      <DependentUpon>201903080714152_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903080718204_collections.cs" />
+    <Compile Include="Migrations\201903080718204_collections.Designer.cs">
+      <DependentUpon>201903080718204_collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903080817168_BaseClass.cs" />
+    <Compile Include="Migrations\201903080817168_BaseClass.Designer.cs">
+      <DependentUpon>201903080817168_BaseClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903080919416_RoleInUser.cs" />
+    <Compile Include="Migrations\201903080919416_RoleInUser.Designer.cs">
+      <DependentUpon>201903080919416_RoleInUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903081006526_RemovedFirstLastNameAndAddedUserName.cs" />
+    <Compile Include="Migrations\201903081006526_RemovedFirstLastNameAndAddedUserName.Designer.cs">
+      <DependentUpon>201903081006526_RemovedFirstLastNameAndAddedUserName.cs</DependentUpon>
     </Compile>
     <Compile Include="Repository\IGenericRepository.cs" />
-    <Compile Include="Migrations\201903061257489_Initial.cs" />
-    <Compile Include="Migrations\201903061257489_Initial.Designer.cs">
-      <DependentUpon>201903061257489_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IRepository\IUserRepositoryy.cs" />
@@ -73,17 +92,25 @@
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="IRepository\UserRepositoryy.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903061257489_Initial.resx">
-      <DependentUpon>201903061257489_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903080714152_Initial.resx">
+      <DependentUpon>201903080714152_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903071209587_CompletedRepositories.resx">
-      <DependentUpon>201903071209587_CompletedRepositories.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903080718204_collections.resx">
+      <DependentUpon>201903080718204_collections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903080817168_BaseClass.resx">
+      <DependentUpon>201903080817168_BaseClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903080919416_RoleInUser.resx">
+      <DependentUpon>201903080919416_RoleInUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903081006526_RemovedFirstLastNameAndAddedUserName.resx">
+      <DependentUpon>201903081006526_RemovedFirstLastNameAndAddedUserName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

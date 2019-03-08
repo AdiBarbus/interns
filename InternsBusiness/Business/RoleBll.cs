@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
 
@@ -20,7 +19,7 @@ namespace InternsBusiness.Business
 
         public Role GetRoleById(int id)
         {
-            return repository.GetById(id);
+            return repository.GetById(a => a.Id == id);
         }
     }
 }

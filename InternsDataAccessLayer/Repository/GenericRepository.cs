@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using InternsDataAccessLayer.Entities;
 using AppContext = InternsDataAccessLayer.Context.AppContext;
 
 namespace InternsDataAccessLayer.Repository
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : BaseClass
     {
         private readonly AppContext context = new AppContext();
 
@@ -29,12 +30,20 @@ namespace InternsDataAccessLayer.Repository
             return list;
         }
 
-        public T GetById(int id)
+        public T GetById(Func<T, bool> where, params Expression<Func<T, object>>[] predicate)
         {
             T user;
             using (context)
             {
-                user = context.Set<T>().Find(id);
+                IQueryable<T> dbQuery = context.Set<T>();
+
+                //Apply eager loading
+                foreach (Expression<Func<T, object>> navigationProperty in predicate)
+                    dbQuery = dbQuery.Include(navigationProperty);
+
+                user = dbQuery
+                    .AsNoTracking() //Don't track any changes for the selected item
+                    .FirstOrDefault(where); //Apply where clause
             }
             return user;
         }
@@ -52,7 +61,7 @@ namespace InternsDataAccessLayer.Repository
         {
             using (context)
             {
-                var user = context.Set<T>().Find(id);
+                var user = context.Set<T>().FirstOrDefault(t => t.Id == id);
                 if (user != null)
                 {
                     context.Set<T>().Remove(user);
@@ -63,11 +72,12 @@ namespace InternsDataAccessLayer.Repository
 
         public void Update(T item)
         {
-            using (context)
+            using (var contex = new AppContext())
             {
-                if (item != null)
+                var entity = contex.Set<T>().Where(t => t.Id == item.Id);
+                if (entity != null)
                 {
-                    context.Entry(item).CurrentValues.SetValues(item);
+                    context.Entry(entity).CurrentValues.SetValues(item);
                     Save();
                 }
             }

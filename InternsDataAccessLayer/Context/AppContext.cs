@@ -15,7 +15,7 @@ namespace InternsDataAccessLayer.Context
         public DbSet<Domain> Domains { get; set; }
         public DbSet<SubDomain> SubDomains { get; set; }
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<Advertisment> Advertisments { get; set; }
+        public DbSet<Advertise> Advertisments { get; set; }
         public DbSet<QA> QAs { get; set; }
         public DbSet<Role> Roles { get; set; }
     }

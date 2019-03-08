@@ -7,13 +7,13 @@ namespace InternsDataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CompletedRepositories : IMigrationMetadata
+    public sealed partial class RemovedFirstLastNameAndAddedUserName : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CompletedRepositories));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemovedFirstLastNameAndAddedUserName));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903071209587_CompletedRepositories"; }
+            get { return "201903081006526_RemovedFirstLastNameAndAddedUserName"; }
         }
         
         string IMigrationMetadata.Source

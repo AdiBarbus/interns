@@ -15,12 +15,12 @@ namespace InternsBusiness.Business
 
         public IList<User> GetAllUsers()
         {
-            return repository.GetAll();
+            return repository.GetAll(e => e.Role);
         }
 
         public User GetUserById(int id)
         {
-            return repository.GetById(id);
+            return repository.GetById(a => a.Id == id, d => d.Role);
         }
 
         public void AddUser(User user)

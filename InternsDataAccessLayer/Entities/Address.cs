@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InternsDataAccessLayer.Entities
 {
-    public class Address
+    public class Address 
     {
         [Key, ForeignKey("User")]
         public int? UserId { get; set; }
