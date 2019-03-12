@@ -49,10 +49,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\AddressBll.cs" />
+    <Compile Include="Business\DomainBll.cs" />
     <Compile Include="Business\IAddressBll.cs" />
+    <Compile Include="Business\IDomainBll.cs" />
     <Compile Include="Business\IRoleBll.cs" />
+    <Compile Include="Business\ISubDomainBll.cs" />
     <Compile Include="Business\IUserBll.cs" />
     <Compile Include="Business\RoleBll.cs" />
+    <Compile Include="Business\SubDomainBll.cs" />
     <Compile Include="Business\UserBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -17,4 +17,6 @@ namespace InternsDataAccessLayer.Repository
     public class RoleRepository : GenericRepository<Role>, IRoleRepository { }
     public class SubDomainRepository : GenericRepository<SubDomain>, ISubDomainRepository { }
     public class UserRepository : GenericRepository<User>, IUserRepository { }
+
+
 }

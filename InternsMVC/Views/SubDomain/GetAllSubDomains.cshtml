@@ -1,0 +1,32 @@
+﻿@model IEnumerable<InternsDataAccessLayer.Entities.SubDomain>
+
+@{
+    ViewBag.Title = "GetAllSubDomains";
+}
+
+<h2>GetAllSubDomains</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateSubDomain")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditSubDomain", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "DeleteSubDomain", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

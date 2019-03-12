@@ -28,25 +28,17 @@ namespace InternsBusiness.Business
             if (user != null)
             {
                 repository.Insert(user);
-                Save();
             }
         }
 
         public void DeleteUser(int id)
         {
             repository.Delete(id);
-            Save();
         }
 
         public void EditUser(User user)
         {
             repository.Update(user);
-            Save();
-        }
-
-        public void Save()
-        {
-            repository.Save();
         }
     }
 }

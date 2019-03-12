@@ -10,12 +10,10 @@ namespace InternsDataAccessLayer.Repository
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : BaseClass
     {
-        private readonly AppContext context = new AppContext();
-
         public virtual IList<T> GetAll(params Expression<Func<T, object>>[] predicate)
         {
             List<T> list;
-            using (context)
+            using (var context = new AppContext())
             {
                 IQueryable<T> dbQuery = context.Set<T>();
 
@@ -33,7 +31,7 @@ namespace InternsDataAccessLayer.Repository
         public T GetById(Func<T, bool> where, params Expression<Func<T, object>>[] predicate)
         {
             T user;
-            using (context)
+            using (var context = new AppContext())
             {
                 IQueryable<T> dbQuery = context.Set<T>();
 
@@ -50,42 +48,36 @@ namespace InternsDataAccessLayer.Repository
 
         public void Insert(T item)
         {
-            using (context)
+            using (var context = new AppContext())
             {
                 context.Set<T>().Add(item);
-                Save();
+                context.SaveChanges();
             }
         }
 
         public void Delete(int id)
         {
-            using (context)
+            using (var context = new AppContext())
             {
                 var user = context.Set<T>().FirstOrDefault(t => t.Id == id);
                 if (user != null)
                 {
                     context.Set<T>().Remove(user);
-                    Save();
+                    context.SaveChanges();
                 }
             }
         }
 
         public void Update(T item)
         {
-            using (var contex = new AppContext())
+            using (var context = new AppContext())
             {
-                var entity = contex.Set<T>().Where(t => t.Id == item.Id);
-                if (entity != null)
-                {
-                    context.Entry(entity).CurrentValues.SetValues(item);
-                    Save();
-                }
+                context.Set<T>().Attach(item);
+                context.Entry(item).State = EntityState.Modified;
+                context.SaveChanges();
             }
         }
 
-        public void Save()
-        {
-            context.SaveChanges();
-        }
+        
     }
 }

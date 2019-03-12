@@ -40,6 +40,6 @@ namespace InternsDataAccessLayer.Repository
         /// <summary>
         ///     Saves the modifications in the database
         /// </summary>
-        void Save();
+        //void Save();
     }
 }

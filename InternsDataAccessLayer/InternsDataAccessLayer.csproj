@@ -56,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\AppContext.cs" />
+    <Compile Include="EntitiesConfiguration\AdvertiseConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\DomainConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\QAConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\RoleConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\SubdomainConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\UserConfiguration.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Advertise.cs" />
     <Compile Include="Entities\BaseClass.cs" />
@@ -72,17 +78,9 @@
     <Compile Include="Migrations\201903080718204_collections.Designer.cs">
       <DependentUpon>201903080718204_collections.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903080817168_BaseClass.cs" />
-    <Compile Include="Migrations\201903080817168_BaseClass.Designer.cs">
-      <DependentUpon>201903080817168_BaseClass.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903080919416_RoleInUser.cs" />
-    <Compile Include="Migrations\201903080919416_RoleInUser.Designer.cs">
-      <DependentUpon>201903080919416_RoleInUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903081006526_RemovedFirstLastNameAndAddedUserName.cs" />
-    <Compile Include="Migrations\201903081006526_RemovedFirstLastNameAndAddedUserName.Designer.cs">
-      <DependentUpon>201903081006526_RemovedFirstLastNameAndAddedUserName.cs</DependentUpon>
+    <Compile Include="Migrations\201903111347388_AddedDomainIdToSubDomain.cs" />
+    <Compile Include="Migrations\201903111347388_AddedDomainIdToSubDomain.Designer.cs">
+      <DependentUpon>201903111347388_AddedDomainIdToSubDomain.cs</DependentUpon>
     </Compile>
     <Compile Include="Repository\IGenericRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -103,14 +101,8 @@
     <EmbeddedResource Include="Migrations\201903080718204_collections.resx">
       <DependentUpon>201903080718204_collections.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903080817168_BaseClass.resx">
-      <DependentUpon>201903080817168_BaseClass.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903080919416_RoleInUser.resx">
-      <DependentUpon>201903080919416_RoleInUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903081006526_RemovedFirstLastNameAndAddedUserName.resx">
-      <DependentUpon>201903081006526_RemovedFirstLastNameAndAddedUserName.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903111347388_AddedDomainIdToSubDomain.resx">
+      <DependentUpon>201903111347388_AddedDomainIdToSubDomain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

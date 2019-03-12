@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using InternsBusiness.EntitiesConfiguration;
 using InternsDataAccessLayer.Entities;
 
 namespace InternsDataAccessLayer.Context
@@ -18,5 +19,20 @@ namespace InternsDataAccessLayer.Context
         public DbSet<Advertise> Advertisments { get; set; }
         public DbSet<QA> QAs { get; set; }
         public DbSet<Role> Roles { get; set; }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    ConfigureModels(modelBuilder);
+        //    base.OnModelCreating(modelBuilder);
+        //}
+
+        //private void ConfigureModels(DbModelBuilder modelBuilder)
+        //{
+        //    AdvertiseConfiguration.Configure(modelBuilder);
+        //    DomainConfiguration.Configure(modelBuilder);
+        //    QAConfiguration.Configure(modelBuilder);
+        //    SubdomainConfiguration.Configure(modelBuilder);
+        //    UserConfiguration.Configure(modelBuilder);
+        //}
     }
 }

@@ -10,6 +10,5 @@ namespace InternsBusiness.Business
         void AddUser(User user);
         void DeleteUser(int id);
         void EditUser(User user);
-        void Save();
     }
 }
