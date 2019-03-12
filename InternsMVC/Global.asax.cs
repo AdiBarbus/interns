@@ -37,6 +37,8 @@ namespace InternsMVC
             builder.RegisterType<RoleBll>().As<IRoleBll>();
             builder.RegisterType<DomainBll>().As<IDomainBll>();
             builder.RegisterType<SubDomainBll>().As<ISubDomainBll>();
+            builder.RegisterType<AdvertiseBll>().As<IAdvertiseBll>();
+            builder.RegisterType<QABll>().As<IQABll>();
            // builder.RegisterType<AddressBll>().As<IAddressBll>();
 
             var container = builder.Build();

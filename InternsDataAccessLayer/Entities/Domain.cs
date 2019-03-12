@@ -8,5 +8,6 @@ namespace InternsDataAccessLayer.Entities
         [Required]
         public string Name { get; set; }
         public ICollection<SubDomain> SubDomains { get; set; }
+        public ICollection<Advertise> Advertises { get; set; }
     }
 }

@@ -17,7 +17,6 @@ namespace InternsDataAccessLayer.Repository
         /// <summary>
         ///     Gets the item with the specified id
         /// </summary>
-        /// <param name="id"></param>
         /// <returns> The item with the id passed as the parameter </returns>
         T GetById(Func<T, bool> where, params Expression<Func<T, object>>[] predicate);
 
@@ -37,9 +36,6 @@ namespace InternsDataAccessLayer.Repository
         /// </summary>
         /// <param name="item"></param>
         void Update(T item);
-        /// <summary>
-        ///     Saves the modifications in the database
-        /// </summary>
-        //void Save();
+        
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using InternsBusiness.EntitiesConfiguration;
 using InternsDataAccessLayer.Entities;
 
 namespace InternsDataAccessLayer.Context

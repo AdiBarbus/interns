@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using InternsBusiness.Business;
 using InternsDataAccessLayer.Entities;
 
@@ -21,13 +19,24 @@ namespace InternsMVC.Controllers
             return View(getAll);
         }
         [HttpGet]
+        [Route("domain/GetSubDomainByDomain/{domainId}")]
         public ActionResult GetSubDomainsByDomain(int domainId)
         {
             var byId = domainBll.GetSubDomainsByDomain(domainId);
-            ViewBag.Dict = domainBll.GetDomainById(domainId).Name;
+            ViewBag.DomainName = domainBll.GetDomainById(domainId).Name;
 
             return View(byId);
         }
+        [HttpGet]
+        [Route("domain/GetAdvertisesByDomain/{domainId}")]
+        public ActionResult GetAdvertisesByDomain(int domainId)
+        {
+            var byId = domainBll.GetAdvertisesByDomain(domainId);
+            ViewBag.DomainName = domainBll.GetDomainById(domainId).Name;
+
+            return View(byId);
+        }
+
 
         [HttpGet]
         public ActionResult CreateDomain()
@@ -40,6 +49,21 @@ namespace InternsMVC.Controllers
             domainBll.AddDomain(domain);
             return RedirectToAction("GetAllDomains");
         }
+
+        [HttpGet]
+        public ActionResult EditDomain(int id)
+        {
+            var us = domainBll.GetDomainById(id);
+            return View(us);
+        }
+
+        [HttpPost]
+        public ActionResult EditDomain(Domain domain)
+        {
+            domainBll.EditDomain(domain);
+            return RedirectToAction("GetAllDomains");
+        }
+
         [HttpGet]
         public ActionResult DeleteDomain(int id)
         {

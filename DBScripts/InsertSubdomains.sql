@@ -1,7 +1,7 @@
 select * from SubDomains
 
-insert into SubDomains(Name,Domain_ID) 
+insert into SubDomains(Name, DomainId) 
 values
-	  ('Subdomain1',5),
-	  ('Subdomain2',5),
-	  ('Subdomain3',5);
+	  ('Subdomain1',6),
+	  ('Subdomain2',6),
+	  ('Subdomain3',6);

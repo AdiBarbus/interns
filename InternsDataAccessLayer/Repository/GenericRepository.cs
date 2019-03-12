@@ -77,7 +77,5 @@ namespace InternsDataAccessLayer.Repository
                 context.SaveChanges();
             }
         }
-
-        
     }
 }

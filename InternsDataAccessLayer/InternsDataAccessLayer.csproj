@@ -82,6 +82,34 @@
     <Compile Include="Migrations\201903111347388_AddedDomainIdToSubDomain.Designer.cs">
       <DependentUpon>201903111347388_AddedDomainIdToSubDomain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903121014190_OnDeleteCascadeSubdomains.cs" />
+    <Compile Include="Migrations\201903121014190_OnDeleteCascadeSubdomains.Designer.cs">
+      <DependentUpon>201903121014190_OnDeleteCascadeSubdomains.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121137340_DateFormatAdvertise.cs" />
+    <Compile Include="Migrations\201903121137340_DateFormatAdvertise.Designer.cs">
+      <DependentUpon>201903121137340_DateFormatAdvertise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121259393_AddedRoleIdToUserEntity.cs" />
+    <Compile Include="Migrations\201903121259393_AddedRoleIdToUserEntity.Designer.cs">
+      <DependentUpon>201903121259393_AddedRoleIdToUserEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121427194_AddedDomainIdToAdvertise.cs" />
+    <Compile Include="Migrations\201903121427194_AddedDomainIdToAdvertise.Designer.cs">
+      <DependentUpon>201903121427194_AddedDomainIdToAdvertise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.cs" />
+    <Compile Include="Migrations\201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.Designer.cs">
+      <DependentUpon>201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.cs" />
+    <Compile Include="Migrations\201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.Designer.cs">
+      <DependentUpon>201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121650184_NullabaleDatesInAdvertise.cs" />
+    <Compile Include="Migrations\201903121650184_NullabaleDatesInAdvertise.Designer.cs">
+      <DependentUpon>201903121650184_NullabaleDatesInAdvertise.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\IGenericRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +131,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903111347388_AddedDomainIdToSubDomain.resx">
       <DependentUpon>201903111347388_AddedDomainIdToSubDomain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121014190_OnDeleteCascadeSubdomains.resx">
+      <DependentUpon>201903121014190_OnDeleteCascadeSubdomains.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121137340_DateFormatAdvertise.resx">
+      <DependentUpon>201903121137340_DateFormatAdvertise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121259393_AddedRoleIdToUserEntity.resx">
+      <DependentUpon>201903121259393_AddedRoleIdToUserEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121427194_AddedDomainIdToAdvertise.resx">
+      <DependentUpon>201903121427194_AddedDomainIdToAdvertise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.resx">
+      <DependentUpon>201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.resx">
+      <DependentUpon>201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121650184_NullabaleDatesInAdvertise.resx">
+      <DependentUpon>201903121650184_NullabaleDatesInAdvertise.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

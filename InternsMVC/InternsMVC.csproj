@@ -170,15 +170,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdvertiseController.cs" />
     <Compile Include="Controllers\DomainController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Controllers\SubDomainController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DomainSubdomain.cs" />
-    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +201,16 @@
     <Content Include="Views\SubDomain\GetAllSubDomains.cshtml" />
     <Content Include="Views\SubDomain\CreateSubDomain.cshtml" />
     <Content Include="Views\Domain\GetSubDomainsByDomain.cshtml" />
+    <Content Include="Views\Domain\EditDomain.cshtml" />
+    <Content Include="Views\SubDomain\EditSubDomain.cshtml" />
+    <Content Include="Views\Advertise\GetAllAdvertises.cshtml" />
+    <Content Include="Views\Advertise\CreateAdvertise.cshtml" />
+    <Content Include="Views\Advertise\EditAdvertise.cshtml" />
+    <Content Include="Views\Domain\GetAdvertisesByDomain.cshtml" />
+    <Content Include="Views\SubDomain\GetAdvertisesBySubDomain.cshtml" />
+    <Content Include="Views\QA\GetAllQAs.cshtml" />
+    <Content Include="Views\QA\CreateQA.cshtml" />
+    <Content Include="Views\QA\EditQA.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -210,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InternsBusiness\InternsBusinessLogicLayer.csproj">

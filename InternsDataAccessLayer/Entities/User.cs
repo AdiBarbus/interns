@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace InternsDataAccessLayer.Entities
 {
@@ -16,5 +17,7 @@ namespace InternsDataAccessLayer.Entities
         public string University { get; set; }
         public virtual Address Address { get; set; }
         public virtual Role Role { get; set; }
+        public int RoleId { get; set; }
+        public IEnumerable<Advertise> Advertises { get; set; }
     }
 }

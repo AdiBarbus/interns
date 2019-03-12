@@ -7,6 +7,7 @@ namespace InternsBusiness.Business
     {
         IList<Domain> GetAllDomains();
         IList<SubDomain> GetSubDomainsByDomain(int id);
+        IList<Advertise> GetAdvertisesByDomain(int id);
         Domain GetDomainById(int id);
         void AddDomain(Domain domain);
         void DeleteDomain(int id);

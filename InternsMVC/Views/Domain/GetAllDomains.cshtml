@@ -1,32 +1,46 @@
 ﻿@model IEnumerable<InternsDataAccessLayer.Entities.Domain>
 
 @{
-    ViewBag.Title = "GetAll";
+    ViewBag.Title = "Domains";
 }
+<h2>Users</h2>
 
-<h2>GetAll</h2>
+<div class="panel panel-default">
+    <table class="table table-striped table-condensed table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Go To
+            </th>
+            <th>Actions</th>
+        </tr>
 
-<p>
-    @Html.ActionLink("Create New", "CreateDomain")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>Actions</th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @Html.ActionLink("Subdomains", "GetSubDomainsByDomain", "Domain", new {domainId = item.Id}, null) |
+                    @Html.ActionLink("Advertises", "GetAdvertisesByDomain", "Domain", new {domainId = item.Id}, null)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditDomain", new {id = item.Id}) |
+                    @Html.ActionLink("Delete", "DeleteDomain", new {id = item.Id})
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink(item.Name, "GetSubDomainsByDomain", "Domain", new { domainId = item.Id }, null)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DeleteDomain", new { id=item.Id })
-        </td>
-    </tr>
-}
+    </table>
+</div>
 
-</table>
+<div> @Html.ActionLink("Add Domain", "CreateDomain", null, new { @class = "btn btn-default" }) </div>

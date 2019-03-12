@@ -1,0 +1,44 @@
+﻿@model IEnumerable<InternsDataAccessLayer.Entities.QA>
+
+@{
+    ViewBag.Title = "Questions and Answers";
+}
+
+<h2>Questions and Answers</h2>
+
+<div class="panel panel-default">
+    <table class="table table-striped table-condensed table-bordered">
+        <tr>
+            <th>Id</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Question)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditQA", new {id = item.Id}) |
+                    @Html.ActionLink("Delete", "DeleteQA", new {id = item.Id})
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div> @Html.ActionLink("Add Q&A", "CreateQA", null, new { @class = "btn btn-default" }) </div>
