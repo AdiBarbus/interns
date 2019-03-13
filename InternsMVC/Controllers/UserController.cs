@@ -32,8 +32,11 @@ namespace InternsMVC.Controllers
         [HttpPost]
         public ActionResult CreateUser(User user)
         {
-            userBll.AddUser(user);
-            
+            if (ModelState.IsValid)
+            {
+                userBll.AddUser(user);
+            }
+
             return RedirectToAction("GetAllUsers");
         }
 

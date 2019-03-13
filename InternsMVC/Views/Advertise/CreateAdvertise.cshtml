@@ -1,4 +1,5 @@
-﻿@model InternsDataAccessLayer.Entities.Advertise
+﻿@using InternsDataAccessLayer.Entities
+@model InternsDataAccessLayer.Entities.Advertise
 
 @{
     ViewBag.Title = "Create Advertise";
@@ -18,7 +19,7 @@
             <div class="control-label col-md-2 ">
                 @Html.DropDownListFor(m => m.DomainId,
                     new SelectList(ViewBag.Domain, "Id", "Name"))
-            </div>
+                </div>
         </div>
 
         <div class="form-group">
@@ -34,7 +35,7 @@
                     new SelectList(ViewBag.SubDomain, "Id", "Name"))
             </div>
         </div>
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -51,16 +52,6 @@
             </div>
         </div>
         
-       @* @Html.HiddenFor(model=>model.CreateDate)*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.CreateDate, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreateDate, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
         <div class="form-group">
             @Html.Label("Application Deadline", new { @class = "control-label col-md-2" })
             <div class="col-md-10">

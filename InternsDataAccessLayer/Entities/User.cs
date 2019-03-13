@@ -5,13 +5,17 @@ namespace InternsDataAccessLayer.Entities
 {
     public class User : BaseClass
     {
-        [Required]
+        [Display(Name = "User Name")]
+        [Required(ErrorMessage = "User Name is Required")]
         public string UserName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
-        [Required]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
         [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
         public string Phone { get; set; }
         public string University { get; set; }

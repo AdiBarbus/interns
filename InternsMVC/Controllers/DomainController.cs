@@ -1,22 +1,37 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using InternsBusiness.Business;
 using InternsDataAccessLayer.Entities;
+using InternsMVC.Models;
 
 namespace InternsMVC.Controllers
 {
     public class DomainController : Controller
     {
         private readonly IDomainBll domainBll;
-
+        public int PageSize = 7;
+        
         public DomainController(IDomainBll domain)
         {
             domainBll = domain;
         }
         [HttpGet]
-        public ActionResult GetAllDomains()
+        [Route("domain/GetAllDomains/{page}")]
+        public ActionResult GetAllDomains(int page = 1)
         {
             var getAll = domainBll.GetAllDomains();
-            return View(getAll);
+
+            DomainsPagingViewModel model = new DomainsPagingViewModel
+            {
+                Domains = getAll.Skip((page - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = getAll.Count()
+                }
+            };
+            return View(model);
         }
         [HttpGet]
         [Route("domain/GetSubDomainByDomain/{domainId}")]

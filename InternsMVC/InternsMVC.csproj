@@ -179,6 +179,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelper\PagingHelper.cs" />
+    <Compile Include="Models\AdvertisePagingViewModel.cs" />
+    <Compile Include="Models\AdvertisePartialView.cs" />
+    <Compile Include="Models\DomainsPagingViewModel.cs" />
+    <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +216,7 @@
     <Content Include="Views\QA\GetAllQAs.cshtml" />
     <Content Include="Views\QA\CreateQA.cshtml" />
     <Content Include="Views\QA\EditQA.cshtml" />
+    <Content Include="Views\Advertise\PartialAd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -220,7 +226,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InternsBusiness\InternsBusinessLogicLayer.csproj">

@@ -27,7 +27,7 @@ namespace InternsBusiness.Business
         }
         public IList<Advertise> GetAdvertisesBySubDomain(int domainId)
         {
-            return advertiseRepository.GetAll().Where(e => e.DomainId == domainId).ToList();
+            return advertiseRepository.GetAll().Where(e => e.DomainId == domainId).Where(e => e.SubDomainId==domainId).ToList();
         }
 
         public void AddSubDomain(SubDomain subDomain)

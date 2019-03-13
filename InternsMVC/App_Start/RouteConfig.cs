@@ -11,6 +11,9 @@ namespace InternsMVC
             
             routes.MapMvcAttributeRoutes();
 
+            //routes.MapRoute(null, "Page{page}", new { Controller = "Domain", action = "GetAllDomains" });
+            //routes.MapRoute(null, "Page{page}", new { Controller = "Advertise", action = "GetAllAdvertises" });
+
             routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",

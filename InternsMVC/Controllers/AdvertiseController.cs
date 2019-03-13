@@ -1,6 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using InternsBusiness.Business;
 using InternsDataAccessLayer.Entities;
+using InternsMVC.Models;
 
 namespace InternsMVC.Controllers
 {
@@ -10,6 +14,7 @@ namespace InternsMVC.Controllers
         private readonly IDomainBll domainBll;
         private readonly IUserBll userBll;
         private readonly ISubDomainBll subDomainBll;
+        public int PageSize = 3;
 
         public AdvertiseController(IAdvertiseBll advertise, IDomainBll domain, IUserBll user, ISubDomainBll subDomain)
         {
@@ -18,11 +23,26 @@ namespace InternsMVC.Controllers
             userBll = user;
             subDomainBll = subDomain;
         }
+
         [HttpGet]
-        public ActionResult GetAllAdvertises()
+        [Route("advertise/GetAllAdvertises/{page}")]
+        public ActionResult GetAllAdvertises(int page = 1)
         {
             var getAll = advertiseBll.GetAllAdvertises();
-            return View(getAll);
+
+            AdvertisePagingViewModel model = new AdvertisePagingViewModel()
+            {
+                Advertises = getAll.Skip((page - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = getAll.Count()
+                }
+            };
+
+            return View(model);
+            //return View(getAll);
         }
 
         [HttpGet]
@@ -32,18 +52,14 @@ namespace InternsMVC.Controllers
             ViewBag.User = userBll.GetAllUsers();
             ViewBag.SubDomain = subDomainBll.GetAllSubDomains();
                         
-            var viewModel = new Advertise()
-            {
-                CreateDate = System.DateTime.Now
-            };
-
-            return View(viewModel);
+            return View();
         }
         [HttpPost]
         public ActionResult CreateAdvertise(Advertise advertise)
         {
+            advertise.CreateDate = DateTime.Now;
             advertiseBll.AddAdvertise(advertise);
-            return RedirectToAction("GetAllSAdvertises");
+            return RedirectToAction("GetAllAdvertises");
         }
 
         [HttpGet]
@@ -57,14 +73,14 @@ namespace InternsMVC.Controllers
         public ActionResult EditAdvertise(Advertise advertise)
         {
             advertiseBll.EditAdvertise(advertise);
-            return RedirectToAction("GetAllSAdvertises");
+            return RedirectToAction("GetAllAdvertises");
         }
 
         [HttpGet]
-        public ActionResult DeleteSubDomain(int id)
+        public ActionResult DeleteAdvertise(int id)
         {
             advertiseBll.DeleteAdvertise(id);
-            return RedirectToAction("GetAllSAdvertises");
+            return RedirectToAction("GetAllAdvertises");
         }
     }
 }
