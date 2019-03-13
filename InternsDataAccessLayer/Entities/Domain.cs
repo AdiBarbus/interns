@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace InternsDataAccessLayer.Entities
 {
-    public class Domain
+    public class Domain : BaseClass
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
-
         public ICollection<SubDomain> SubDomains { get; set; }
-        public ICollection<Advertisment> Advertisments { get; set; }
+        public ICollection<Advertise> Advertises { get; set; }
     }
 }

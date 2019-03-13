@@ -48,12 +48,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Business\AddressBll.cs" />
+    <Compile Include="Business\AdvertiseBll.cs" />
+    <Compile Include="Business\DomainBll.cs" />
+    <Compile Include="IBusiness\IQABll.cs" />
+    <Compile Include="Business\QABll.cs" />
+    <Compile Include="IBusiness\IAdvertiseBll.cs" />
+    <Compile Include="IBusiness\IAddressBll.cs" />
+    <Compile Include="IBusiness\IDomainBll.cs" />
+    <Compile Include="IBusiness\IRoleBll.cs" />
+    <Compile Include="IBusiness\ISubDomainBll.cs" />
+    <Compile Include="IBusiness\IUserBll.cs" />
+    <Compile Include="Business\RoleBll.cs" />
+    <Compile Include="Business\SubDomainBll.cs" />
+    <Compile Include="Business\UserBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InternsDataAccessLayer\InternsDataAccessLayer.csproj">
+      <Project>{a517b608-ad45-4780-9ac2-8b76831fd925}</Project>
+      <Name>InternsDataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

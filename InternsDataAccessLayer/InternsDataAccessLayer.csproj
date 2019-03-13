@@ -37,6 +37,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GenericRepository, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GenericRepository.0.2.1.0\lib\net40\GenericRepository.dll</HintPath>
+    </Reference>
+    <Reference Include="GenericRepository.EF, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GenericRepository.EF.0.2.1.0\lib\net40\GenericRepository.EF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -50,28 +56,103 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\AppContext.cs" />
+    <Compile Include="EntitiesConfiguration\AdvertiseConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\DomainConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\QAConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\RoleConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\SubdomainConfiguration.cs" />
+    <Compile Include="EntitiesConfiguration\UserConfiguration.cs" />
     <Compile Include="Entities\Address.cs" />
-    <Compile Include="Entities\Advertisment.cs" />
-    <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\Advertise.cs" />
+    <Compile Include="Entities\BaseClass.cs" />
     <Compile Include="Entities\Domain.cs" />
     <Compile Include="Entities\QA.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\SubDomain.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Migrations\201903080714152_Initial.cs" />
+    <Compile Include="Migrations\201903080714152_Initial.Designer.cs">
+      <DependentUpon>201903080714152_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903080718204_collections.cs" />
+    <Compile Include="Migrations\201903080718204_collections.Designer.cs">
+      <DependentUpon>201903080718204_collections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903111347388_AddedDomainIdToSubDomain.cs" />
+    <Compile Include="Migrations\201903111347388_AddedDomainIdToSubDomain.Designer.cs">
+      <DependentUpon>201903111347388_AddedDomainIdToSubDomain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121014190_OnDeleteCascadeSubdomains.cs" />
+    <Compile Include="Migrations\201903121014190_OnDeleteCascadeSubdomains.Designer.cs">
+      <DependentUpon>201903121014190_OnDeleteCascadeSubdomains.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121137340_DateFormatAdvertise.cs" />
+    <Compile Include="Migrations\201903121137340_DateFormatAdvertise.Designer.cs">
+      <DependentUpon>201903121137340_DateFormatAdvertise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121259393_AddedRoleIdToUserEntity.cs" />
+    <Compile Include="Migrations\201903121259393_AddedRoleIdToUserEntity.Designer.cs">
+      <DependentUpon>201903121259393_AddedRoleIdToUserEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121427194_AddedDomainIdToAdvertise.cs" />
+    <Compile Include="Migrations\201903121427194_AddedDomainIdToAdvertise.Designer.cs">
+      <DependentUpon>201903121427194_AddedDomainIdToAdvertise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.cs" />
+    <Compile Include="Migrations\201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.Designer.cs">
+      <DependentUpon>201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.cs" />
+    <Compile Include="Migrations\201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.Designer.cs">
+      <DependentUpon>201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121650184_NullabaleDatesInAdvertise.cs" />
+    <Compile Include="Migrations\201903121650184_NullabaleDatesInAdvertise.Designer.cs">
+      <DependentUpon>201903121650184_NullabaleDatesInAdvertise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\IGenericRepository.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IRepository\" />
-    <Folder Include="Repository\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\InternsBusiness\InternsBusiness.csproj">
-      <Project>{442b657d-6360-4ca9-8d7f-0a223764daec}</Project>
-      <Name>InternsBusiness</Name>
-    </ProjectReference>
+    <Compile Include="IRepository\IUserRepositoryy.cs" />
+    <Compile Include="Repository\CustomRepository.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="IRepository\UserRepositoryy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903080714152_Initial.resx">
+      <DependentUpon>201903080714152_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903080718204_collections.resx">
+      <DependentUpon>201903080718204_collections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903111347388_AddedDomainIdToSubDomain.resx">
+      <DependentUpon>201903111347388_AddedDomainIdToSubDomain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121014190_OnDeleteCascadeSubdomains.resx">
+      <DependentUpon>201903121014190_OnDeleteCascadeSubdomains.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121137340_DateFormatAdvertise.resx">
+      <DependentUpon>201903121137340_DateFormatAdvertise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121259393_AddedRoleIdToUserEntity.resx">
+      <DependentUpon>201903121259393_AddedRoleIdToUserEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121427194_AddedDomainIdToAdvertise.resx">
+      <DependentUpon>201903121427194_AddedDomainIdToAdvertise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.resx">
+      <DependentUpon>201903121602080_AddedSubdomainIdandAdvertiseIdPropsToQATable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.resx">
+      <DependentUpon>201903121625276_AddedSubDomainIdAndUserIdToAdvertiseTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121650184_NullabaleDatesInAdvertise.resx">
+      <DependentUpon>201903121650184_NullabaleDatesInAdvertise.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace InternsDataAccessLayer.Entities
 {
-    public class QA
+    public class QA : BaseClass
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        [Required]
         public string Question { get; set; }
+        [Required]
         public string Answer { get; set; }
 
-        public Advertisment Advertisment { get; set; }
-        public SubDomain SubDomain { get; set; }
+        public int SubDomainId { get; set; }
+        public int AdvertiseId { get; set; }
     }
 }

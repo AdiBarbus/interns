@@ -1,0 +1,57 @@
+﻿@using InternsMVC.HtmlHelper
+@*@model IEnumerable<InternsDataAccessLayer.Entities.Advertise>*@
+@model InternsMVC.Models.AdvertisePagingViewModel
+@{
+    ViewBag.Title = "Advertises";
+}
+
+<h2>Advertises</h2>
+
+@foreach (var p in Model.Advertises)
+{
+    @Html.Partial("PartialAd", p)
+}
+
+@*<table class="table table-striped table-condensed table-bordered">
+    <tr>
+        <th>Title</th>
+        <th>Details</th>
+        <th>CreateDate</th>
+        <th>Deadline</th>
+        <th>City</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model.Advertises)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditAdvertise", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteAdvertise", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>*@
+
+<div class="btn-group pull-right">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetAllAdvertises", new { page = x }))
+</div>
+
+<hr />
+
+<div> @Html.ActionLink("Add Advertise", "CreateAdvertise", null, new { @class = "btn btn-default" }) </div>

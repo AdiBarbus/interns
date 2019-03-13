@@ -1,0 +1,40 @@
+﻿@model IEnumerable<InternsDataAccessLayer.Entities.SubDomain>
+@*@model Dictionary<string,InternsDataAccessLayer.Entities.SubDomain>*@
+
+@{
+    ViewBag.Title = "SubDomains";
+}
+
+<h2>@ViewBag.DomainName's subdomains:</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            Subdomain
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Back to List", "GetAllDomains","Domain")
+</div>

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternsMVC", "InternsMVC\InternsMVC.csproj", "{ED5C31C6-BE25-42F5-92AF-E3019A96D04B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternsBusiness", "InternsBusiness\InternsBusiness.csproj", "{442B657D-6360-4CA9-8D7F-0A223764DAEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternsBusinessLogicLayer", "InternsBusiness\InternsBusinessLogicLayer.csproj", "{442B657D-6360-4CA9-8D7F-0A223764DAEC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternsDataAccessLayer", "InternsDataAccessLayer\InternsDataAccessLayer.csproj", "{A517B608-AD45-4780-9AC2-8B76831FD925}"
 EndProject

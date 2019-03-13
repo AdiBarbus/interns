@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace InternsDataAccessLayer.Entities
 {
-    public class SubDomain
+    public class SubDomain : BaseClass
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
-
-        public virtual Domain Domain { get; set; }
-        public virtual ICollection<Advertisment> Advertisments { get; set; }
-        public virtual ICollection<QA> QAs { get; set; }
-
+        public ICollection<Advertise> Advertises { get; set; }
+        public ICollection<QA> QAs { get; set; }
+        public int DomainId { get; set; }
     }
 }
