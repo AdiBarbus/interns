@@ -2,28 +2,28 @@
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public class QABll : IQABll
+    public class QAService : IQaService
     {
-        private readonly IQaRepository repository;
+        private readonly IGenericRepository<Qa> repository;
 
-        public QABll(IQaRepository repo)
+        public QAService(IGenericRepository<Qa> repo)
         {
             repository = repo;
         }
 
-        public IList<QA> GetAllQAs()
+        public IList<Qa> GetAllQas()
         {
             return repository.GetAll();
         }
 
-        public QA GetQAById(int id)
+        public Qa GetQAById(int id)
         {
-            return repository.GetById(a => a.Id == id);
+            return repository.GetById(id); //a => a.Id == id);
         }
 
-        public void AddQA(QA qa)
+        public void AddQa(Qa qa)
         {
             if (qa != null)
             {
@@ -31,12 +31,12 @@ namespace InternsBusiness.Business
             }
         }
 
-        public void DeleteQA(int id)
+        public void DeleteQa(int id)
         {
             repository.Delete(id);
         }
 
-        public void EditQA(QA qa)
+        public void EditQa(Qa qa)
         {
             repository.Update(qa);
         }

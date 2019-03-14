@@ -20,11 +20,16 @@
 </header>
 
 <!-- Nav -->
-<nav id="nav">
-    <ul class="icons">
-        <li><a href="/User/GetAll">Users</a></li>
-    </ul>
-</nav>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="/User/GetAllUsers">Users</a></li>
+            <li><a href="/Domain/GetAllDomains/{page}">Domains</a></li>
+            <li><a href="/SubDomain/GetAllSubDomains">SubDomains</a></li>
+            <li><a href="/Advertise/GetAllAdvertises/{page}">Advertises</a></li>
+            <li><a href="/QA/GetAllQAs">Questions and Answers</a></li>
+        </ul>
+    </div>
+
     <div>
         @RenderBody()
     </div>

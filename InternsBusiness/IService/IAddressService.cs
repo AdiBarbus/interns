@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using InternsDataAccessLayer.Entities;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public interface IAddressBll
+    public interface IAddressService
     {
         IList<Address> GetAllAddresses();
         Address GetAddressById(int id);

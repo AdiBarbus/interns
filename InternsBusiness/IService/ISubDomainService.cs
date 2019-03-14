@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using InternsDataAccessLayer.Entities;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public interface ISubDomainBll
+    public interface ISubDomainService
     {
         IList<SubDomain> GetAllSubDomains();
         SubDomain GetSubDomainById(int id);

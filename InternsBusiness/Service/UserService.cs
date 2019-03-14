@@ -2,13 +2,13 @@
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public class UserBll : IUserBll
+    public class UserService : IUserService
     {
-        private readonly IUserRepository repository;
+        private readonly IGenericRepository<User> repository;
 
-        public UserBll(IUserRepository repo)
+        public UserService(IGenericRepository<User> repo)
         {
             repository = repo;
         }
@@ -20,7 +20,7 @@ namespace InternsBusiness.Business
 
         public User GetUserById(int id)
         {
-            return repository.GetById(a => a.Id == id, d => d.Role);
+            return repository.GetById(id); //a => a.Id == id, d => d.Role);
         }
 
         public void AddUser(User user)

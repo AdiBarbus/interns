@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using InternsDataAccessLayer.Entities;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public interface IAdvertiseBll
+    public interface IAdvertiseService
     {
         IList<Advertise> GetAllAdvertises();
         Advertise GetAdvertiseById(int id);

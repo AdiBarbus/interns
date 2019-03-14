@@ -3,14 +3,14 @@ using System.Linq;
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public class SubDomainBll : ISubDomainBll
+    public class SubDomainService : ISubDomainService
     {
-        private readonly ISubDomainRepository repository;
-        private readonly IAdvertiseRepository advertiseRepository;
+        private readonly IGenericRepository<SubDomain> repository;
+        private readonly IGenericRepository<Advertise> advertiseRepository;
 
-        public SubDomainBll(ISubDomainRepository repo, IAdvertiseRepository advertiseRepo)
+        public SubDomainService(IGenericRepository<SubDomain> repo, IGenericRepository<Advertise> advertiseRepo)
         {
             repository = repo;
             advertiseRepository = advertiseRepo;
@@ -23,7 +23,7 @@ namespace InternsBusiness.Business
 
         public SubDomain GetSubDomainById(int id)
         {
-            return repository.GetById(a => a.Id == id);
+            return repository.GetById(id); //a => a.Id == id);
         }
         public IList<Advertise> GetAdvertisesBySubDomain(int domainId)
         {

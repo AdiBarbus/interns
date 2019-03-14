@@ -1,23 +1,23 @@
 ﻿using System.Web.Mvc;
-using InternsBusiness.Business;
+using InternsServices.Service;
 using InternsDataAccessLayer.Entities;
 
 namespace InternsMVC.Controllers
 {
     public class SubDomainController : Controller
     {
-        private readonly ISubDomainBll subDomainBll;
-        private readonly IDomainBll domainBll;
+        private readonly ISubDomainService subDomainService;
+        private readonly IDomainService domainService;
 
-        public SubDomainController(ISubDomainBll subDomain, IDomainBll domain)
+        public SubDomainController(ISubDomainService subDomain, IDomainService domain)
         {
-            subDomainBll = subDomain;
-            domainBll = domain;
+            subDomainService = subDomain;
+            domainService = domain;
         }
         [HttpGet]
         public ActionResult GetAllSubDomains()
         {
-            var getAll = subDomainBll.GetAllSubDomains();
+            var getAll = subDomainService.GetAllSubDomains();
             return View(getAll);
         }
 
@@ -25,8 +25,8 @@ namespace InternsMVC.Controllers
         [Route("domain/GetAdvertisesBySubDomain/{domainId}")]
         public ActionResult GetAdvertisesBySubDomain(int domainId)
         {
-            var byId = subDomainBll.GetAdvertisesBySubDomain(domainId);
-            ViewBag.SubDomainName = subDomainBll.GetSubDomainById(domainId).Name;
+            var byId = subDomainService.GetAdvertisesBySubDomain(domainId);
+            ViewBag.SubDomainName = subDomainService.GetSubDomainById(domainId).Name;
 
             return View(byId);
         }
@@ -34,34 +34,41 @@ namespace InternsMVC.Controllers
         [HttpGet]
         public ActionResult CreateSubDomain()
         {
-            ViewBag.Domain = domainBll.GetAllDomains();
+            ViewBag.Domain = domainService.GetAllDomains();
             return View();
         }
         [HttpPost]
         public ActionResult CreateSubDomain(SubDomain domain)
         {
-            subDomainBll.AddSubDomain(domain);
+            subDomainService.AddSubDomain(domain);
             return RedirectToAction("GetAllSubDomains");
         }
 
         [HttpGet]
         public ActionResult EditSubDomain(int id)
         {
-            var us = subDomainBll.GetSubDomainById(id);
+            var us = subDomainService.GetSubDomainById(id);
             return View(us);
         }
 
         [HttpPost]
         public ActionResult EditSubDomain(SubDomain subDomain)
         {
-            subDomainBll.EditSubDomain(subDomain);
-            return RedirectToAction("GetAllSubDomains");
+            if (ModelState.IsValid)
+            {
+                subDomainService.EditSubDomain(subDomain);
+                return RedirectToAction("GetAllSubDomains");
+                }
+            else
+            {
+                return View(subDomain);
+            }
         }
 
         [HttpGet]
         public ActionResult DeleteSubDomain(int id)
         {
-            subDomainBll.DeleteSubDomain(id);
+            subDomainService.DeleteSubDomain(id);
             return RedirectToAction("GetAllSubDomains");
         }
     }

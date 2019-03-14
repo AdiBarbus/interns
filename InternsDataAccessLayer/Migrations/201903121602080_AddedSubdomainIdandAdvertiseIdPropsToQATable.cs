@@ -7,34 +7,34 @@ namespace InternsDataAccessLayer.Migrations
     {
         public override void Up()
         {
-            DropForeignKey("dbo.QAs", "Advertise_Id", "dbo.Advertises");
-            DropForeignKey("dbo.QAs", "SubDomain_Id", "dbo.SubDomains");
-            DropIndex("dbo.QAs", new[] { "SubDomain_Id" });
-            DropIndex("dbo.QAs", new[] { "Advertise_Id" });
-            RenameColumn(table: "dbo.QAs", name: "Advertise_Id", newName: "AdvertiseId");
-            RenameColumn(table: "dbo.QAs", name: "SubDomain_Id", newName: "SubDomainId");
-            AlterColumn("dbo.QAs", "SubDomainId", c => c.Int(nullable: false));
-            AlterColumn("dbo.QAs", "AdvertiseId", c => c.Int(nullable: false));
-            CreateIndex("dbo.QAs", "SubDomainId");
-            CreateIndex("dbo.QAs", "AdvertiseId");
-            AddForeignKey("dbo.QAs", "AdvertiseId", "dbo.Advertises", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.QAs", "SubDomainId", "dbo.SubDomains", "Id", cascadeDelete: true);
+            DropForeignKey("dbo.Qas", "Advertise_Id", "dbo.Advertises");
+            DropForeignKey("dbo.Qas", "SubDomain_Id", "dbo.SubDomains");
+            DropIndex("dbo.Qas", new[] { "SubDomain_Id" });
+            DropIndex("dbo.Qas", new[] { "Advertise_Id" });
+            RenameColumn(table: "dbo.Qas", name: "Advertise_Id", newName: "AdvertiseId");
+            RenameColumn(table: "dbo.Qas", name: "SubDomain_Id", newName: "SubDomainId");
+            AlterColumn("dbo.Qas", "SubDomainId", c => c.Int(nullable: false));
+            AlterColumn("dbo.Qas", "AdvertiseId", c => c.Int(nullable: false));
+            CreateIndex("dbo.Qas", "SubDomainId");
+            CreateIndex("dbo.Qas", "AdvertiseId");
+            AddForeignKey("dbo.Qas", "AdvertiseId", "dbo.Advertises", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Qas", "SubDomainId", "dbo.SubDomains", "Id", cascadeDelete: true);
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.QAs", "SubDomainId", "dbo.SubDomains");
-            DropForeignKey("dbo.QAs", "AdvertiseId", "dbo.Advertises");
-            DropIndex("dbo.QAs", new[] { "AdvertiseId" });
-            DropIndex("dbo.QAs", new[] { "SubDomainId" });
-            AlterColumn("dbo.QAs", "AdvertiseId", c => c.Int());
-            AlterColumn("dbo.QAs", "SubDomainId", c => c.Int());
-            RenameColumn(table: "dbo.QAs", name: "SubDomainId", newName: "SubDomain_Id");
-            RenameColumn(table: "dbo.QAs", name: "AdvertiseId", newName: "Advertise_Id");
-            CreateIndex("dbo.QAs", "Advertise_Id");
-            CreateIndex("dbo.QAs", "SubDomain_Id");
-            AddForeignKey("dbo.QAs", "SubDomain_Id", "dbo.SubDomains", "Id");
-            AddForeignKey("dbo.QAs", "Advertise_Id", "dbo.Advertises", "Id");
+            DropForeignKey("dbo.Qas", "SubDomainId", "dbo.SubDomains");
+            DropForeignKey("dbo.Qas", "AdvertiseId", "dbo.Advertises");
+            DropIndex("dbo.Qas", new[] { "AdvertiseId" });
+            DropIndex("dbo.Qas", new[] { "SubDomainId" });
+            AlterColumn("dbo.Qas", "AdvertiseId", c => c.Int());
+            AlterColumn("dbo.Qas", "SubDomainId", c => c.Int());
+            RenameColumn(table: "dbo.Qas", name: "SubDomainId", newName: "SubDomain_Id");
+            RenameColumn(table: "dbo.Qas", name: "AdvertiseId", newName: "Advertise_Id");
+            CreateIndex("dbo.Qas", "Advertise_Id");
+            CreateIndex("dbo.Qas", "SubDomain_Id");
+            AddForeignKey("dbo.Qas", "SubDomain_Id", "dbo.SubDomains", "Id");
+            AddForeignKey("dbo.Qas", "Advertise_Id", "dbo.Advertises", "Id");
         }
     }
 }

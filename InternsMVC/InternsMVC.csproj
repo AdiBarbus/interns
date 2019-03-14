@@ -228,9 +228,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\InternsBusiness\InternsBusinessLogicLayer.csproj">
+    <ProjectReference Include="..\InternsBusiness\InternsServices.csproj">
       <Project>{442b657d-6360-4ca9-8d7f-0a223764daec}</Project>
-      <Name>InternsBusinessLogicLayer</Name>
+      <Name>InternsServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\InternsDataAccessLayer\InternsDataAccessLayer.csproj">
       <Project>{a517b608-ad45-4780-9ac2-8b76831fd925}</Project>

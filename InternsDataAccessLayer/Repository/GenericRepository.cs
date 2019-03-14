@@ -8,14 +8,27 @@ using AppContext = InternsDataAccessLayer.Context.AppContext;
 
 namespace InternsDataAccessLayer.Repository
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : BaseClass
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseClass
     {
-        public virtual IList<T> GetAll(params Expression<Func<T, object>>[] predicate)
+        private readonly AppContext context;
+        private readonly DbSet<T> table;
+        public GenericRepository()
+        {
+            context = new AppContext();
+            table = context.Set<T>();
+        }
+        public GenericRepository(AppContext context)
+        {
+            this.context = context;
+            table = context.Set<T>();
+        }
+
+    public virtual IList<T> GetAll(params Expression<Func<T, object>>[] predicate)
         {
             List<T> list;
-            using (var context = new AppContext())
+            using (context)
             {
-                IQueryable<T> dbQuery = context.Set<T>();
+                IQueryable<T> dbQuery = table;
 
                 //Apply eager loading
                 foreach (var item in predicate)
@@ -28,41 +41,28 @@ namespace InternsDataAccessLayer.Repository
             return list;
         }
 
-        public T GetById(Func<T, bool> where, params Expression<Func<T, object>>[] predicate)
-        {
-            T user;
-            using (var context = new AppContext())
-            {
-                IQueryable<T> dbQuery = context.Set<T>();
-
-                //Apply eager loading
-                foreach (Expression<Func<T, object>> navigationProperty in predicate)
-                    dbQuery = dbQuery.Include(navigationProperty);
-
-                user = dbQuery
-                    .AsNoTracking() //Don't track any changes for the selected item
-                    .FirstOrDefault(where); //Apply where clause
-            }
-            return user;
+        public T GetById(int id)
+        { 
+            return table.FirstOrDefault(e => e.Id == id);
         }
 
         public void Insert(T item)
         {
-            using (var context = new AppContext())
+            using (context)
             {
-                context.Set<T>().Add(item);
+                table.Add(item);
                 context.SaveChanges();
             }
         }
 
         public void Delete(int id)
         {
-            using (var context = new AppContext())
+            using (context)
             {
-                var user = context.Set<T>().FirstOrDefault(t => t.Id == id);
+                var user = table.FirstOrDefault(t => t.Id == id);
                 if (user != null)
                 {
-                    context.Set<T>().Remove(user);
+                    table.Remove(user);
                     context.SaveChanges();
                 }
             }
@@ -70,9 +70,9 @@ namespace InternsDataAccessLayer.Repository
 
         public void Update(T item)
         {
-            using (var context = new AppContext())
+            using (context)
             {
-                context.Set<T>().Attach(item);
+                table.Attach(item);
                 context.Entry(item).State = EntityState.Modified;
                 context.SaveChanges();
             }

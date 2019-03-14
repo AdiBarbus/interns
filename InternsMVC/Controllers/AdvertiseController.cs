@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using InternsBusiness.Business;
+using InternsServices.Service;
 using InternsDataAccessLayer.Entities;
 using InternsMVC.Models;
 
@@ -10,25 +9,25 @@ namespace InternsMVC.Controllers
 {
     public class AdvertiseController : Controller
     {
-        private readonly IAdvertiseBll advertiseBll;
-        private readonly IDomainBll domainBll;
-        private readonly IUserBll userBll;
-        private readonly ISubDomainBll subDomainBll;
+        private readonly IAdvertiseService advertiseService;
+        private readonly IDomainService domainService;
+        private readonly IUserService userService;
+        private readonly ISubDomainService subDomainService;
         public int PageSize = 3;
 
-        public AdvertiseController(IAdvertiseBll advertise, IDomainBll domain, IUserBll user, ISubDomainBll subDomain)
+        public AdvertiseController(IAdvertiseService advertise, IDomainService domain, IUserService user, ISubDomainService subDomain)
         {
-            advertiseBll = advertise;
-            domainBll = domain;
-            userBll = user;
-            subDomainBll = subDomain;
+            advertiseService = advertise;
+            domainService = domain;
+            userService = user;
+            subDomainService = subDomain;
         }
 
         [HttpGet]
-        [Route("advertise/GetAllAdvertises/{page}")]
+        //[Route("advertise/GetAllAdvertises/{page}")]
         public ActionResult GetAllAdvertises(int page = 1)
         {
-            var getAll = advertiseBll.GetAllAdvertises();
+            var getAll = advertiseService.GetAllAdvertises();
 
             AdvertisePagingViewModel model = new AdvertisePagingViewModel()
             {
@@ -48,9 +47,9 @@ namespace InternsMVC.Controllers
         [HttpGet]
         public ActionResult CreateAdvertise()
         {
-            ViewBag.Domain = domainBll.GetAllDomains();
-            ViewBag.User = userBll.GetAllUsers();
-            ViewBag.SubDomain = subDomainBll.GetAllSubDomains();
+            ViewBag.Domain = domainService.GetAllDomains();
+            ViewBag.User = userService.GetAllUsers();
+            ViewBag.SubDomain = subDomainService.GetAllSubDomains();
                         
             return View();
         }
@@ -58,28 +57,28 @@ namespace InternsMVC.Controllers
         public ActionResult CreateAdvertise(Advertise advertise)
         {
             advertise.CreateDate = DateTime.Now;
-            advertiseBll.AddAdvertise(advertise);
+            advertiseService.AddAdvertise(advertise);
             return RedirectToAction("GetAllAdvertises");
         }
 
         [HttpGet]
         public ActionResult EditAdvertise(int id)
         {
-            var us = advertiseBll.GetAdvertiseById(id);
+            var us = advertiseService.GetAdvertiseById(id);
             return View(us);
         }
 
         [HttpPost]
         public ActionResult EditAdvertise(Advertise advertise)
         {
-            advertiseBll.EditAdvertise(advertise);
+            advertiseService.EditAdvertise(advertise);
             return RedirectToAction("GetAllAdvertises");
         }
 
         [HttpGet]
         public ActionResult DeleteAdvertise(int id)
         {
-            advertiseBll.DeleteAdvertise(id);
+            advertiseService.DeleteAdvertise(id);
             return RedirectToAction("GetAllAdvertises");
         }
     }

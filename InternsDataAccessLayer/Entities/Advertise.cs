@@ -22,6 +22,6 @@ namespace InternsDataAccessLayer.Entities
         public int DomainId { get; set; }
         public SubDomain SubDomain { get; set; }
         public int SubDomainId { get; set; }
-        public ICollection<QA> QAs { get; set; }
+        public ICollection<Qa> Qas { get; set; }
     }
 }

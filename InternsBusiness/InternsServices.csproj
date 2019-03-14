@@ -48,20 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\AddressBll.cs" />
-    <Compile Include="Business\AdvertiseBll.cs" />
-    <Compile Include="Business\DomainBll.cs" />
-    <Compile Include="IBusiness\IQABll.cs" />
-    <Compile Include="Business\QABll.cs" />
-    <Compile Include="IBusiness\IAdvertiseBll.cs" />
-    <Compile Include="IBusiness\IAddressBll.cs" />
-    <Compile Include="IBusiness\IDomainBll.cs" />
-    <Compile Include="IBusiness\IRoleBll.cs" />
-    <Compile Include="IBusiness\ISubDomainBll.cs" />
-    <Compile Include="IBusiness\IUserBll.cs" />
-    <Compile Include="Business\RoleBll.cs" />
-    <Compile Include="Business\SubDomainBll.cs" />
-    <Compile Include="Business\UserBll.cs" />
+    <Compile Include="Service\AddressBll.cs" />
+    <Compile Include="Service\AdvertiseService.cs" />
+    <Compile Include="Service\DomainService.cs" />
+    <Compile Include="IService\IQaService.cs" />
+    <Compile Include="Service\QaService.cs" />
+    <Compile Include="IService\IAdvertiseService.cs" />
+    <Compile Include="IService\IAddressService.cs" />
+    <Compile Include="IService\IDomainService.cs" />
+    <Compile Include="IService\IRoleService.cs" />
+    <Compile Include="IService\ISubDomainService.cs" />
+    <Compile Include="IService\IUserService.cs" />
+    <Compile Include="Service\RoleService.cs" />
+    <Compile Include="Service\SubDomainService.cs" />
+    <Compile Include="Service\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

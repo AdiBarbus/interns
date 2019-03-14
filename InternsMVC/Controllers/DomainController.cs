@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using InternsBusiness.Business;
+using InternsServices.Service;
 using InternsDataAccessLayer.Entities;
 using InternsMVC.Models;
 
@@ -8,18 +8,18 @@ namespace InternsMVC.Controllers
 {
     public class DomainController : Controller
     {
-        private readonly IDomainBll domainBll;
+        private readonly IDomainService domainService;
         public int PageSize = 7;
         
-        public DomainController(IDomainBll domain)
+        public DomainController(IDomainService domain)
         {
-            domainBll = domain;
+            domainService = domain;
         }
         [HttpGet]
-        [Route("domain/GetAllDomains/{page}")]
+        //[Route("domain/GetAllDomains/{page}")]
         public ActionResult GetAllDomains(int page = 1)
         {
-            var getAll = domainBll.GetAllDomains();
+            var getAll = domainService.GetAllDomains();
 
             DomainsPagingViewModel model = new DomainsPagingViewModel
             {
@@ -37,8 +37,8 @@ namespace InternsMVC.Controllers
         [Route("domain/GetSubDomainByDomain/{domainId}")]
         public ActionResult GetSubDomainsByDomain(int domainId)
         {
-            var byId = domainBll.GetSubDomainsByDomain(domainId);
-            ViewBag.DomainName = domainBll.GetDomainById(domainId).Name;
+            var byId = domainService.GetSubDomainsByDomain(domainId);
+            ViewBag.DomainName = domainService.GetDomainById(domainId).Name;
 
             return View(byId);
         }
@@ -46,8 +46,8 @@ namespace InternsMVC.Controllers
         [Route("domain/GetAdvertisesByDomain/{domainId}")]
         public ActionResult GetAdvertisesByDomain(int domainId)
         {
-            var byId = domainBll.GetAdvertisesByDomain(domainId);
-            ViewBag.DomainName = domainBll.GetDomainById(domainId).Name;
+            var byId = domainService.GetAdvertisesByDomain(domainId);
+            ViewBag.DomainName = domainService.GetDomainById(domainId).Name;
 
             return View(byId);
         }
@@ -61,28 +61,28 @@ namespace InternsMVC.Controllers
         [HttpPost]
         public ActionResult CreateDomain(Domain domain)
         {
-            domainBll.AddDomain(domain);
+            domainService.AddDomain(domain);
             return RedirectToAction("GetAllDomains");
         }
 
         [HttpGet]
         public ActionResult EditDomain(int id)
         {
-            var us = domainBll.GetDomainById(id);
+            var us = domainService.GetDomainById(id);
             return View(us);
         }
 
         [HttpPost]
         public ActionResult EditDomain(Domain domain)
         {
-            domainBll.EditDomain(domain);
+            domainService.EditDomain(domain);
             return RedirectToAction("GetAllDomains");
         }
 
         [HttpGet]
         public ActionResult DeleteDomain(int id)
         {
-            domainBll.DeleteDomain(id);
+            domainService.DeleteDomain(id);
             return RedirectToAction("GetAllDomains");
         }
     }

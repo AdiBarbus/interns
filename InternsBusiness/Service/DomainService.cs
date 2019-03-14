@@ -3,15 +3,15 @@ using System.Linq;
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public class DomainBll : IDomainBll
+    public class DomainService : IDomainService
     {
-        private readonly IDomainRepository repository;
-        private readonly ISubDomainRepository subDomainRepository;
-        private readonly IAdvertiseRepository advertiseRepository;
+        private readonly IGenericRepository<Domain> repository;
+        private readonly IGenericRepository<SubDomain> subDomainRepository;
+        private readonly IGenericRepository<Advertise> advertiseRepository;
 
-        public DomainBll(IDomainRepository repo, ISubDomainRepository subDomainRepo, IAdvertiseRepository advertiseRepo)
+        public DomainService(IGenericRepository<Domain> repo, IGenericRepository<SubDomain> subDomainRepo, IGenericRepository<Advertise> advertiseRepo)
         {
             repository = repo;
             subDomainRepository = subDomainRepo;
@@ -35,7 +35,7 @@ namespace InternsBusiness.Business
 
         public Domain GetDomainById(int id)
         {
-            return repository.GetById(a => a.Id == id);
+            return repository.GetById(id); //a => a.Id == id);
         }
 
         public void AddDomain(Domain domain)

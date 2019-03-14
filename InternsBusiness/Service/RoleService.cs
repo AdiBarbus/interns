@@ -2,13 +2,13 @@
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public class RoleBll : IRoleBll
+    public class RoleService : IRoleService
     {
-        private readonly IRoleRepository repository;
+        private readonly IGenericRepository<Role> repository;
 
-        public RoleBll(IRoleRepository repo)
+        public RoleService(IGenericRepository<Role> repo)
         {
             repository = repo;
         }
@@ -19,7 +19,7 @@ namespace InternsBusiness.Business
 
         public Role GetRoleById(int id)
         {
-            return repository.GetById(a => a.Id == id);
+            return repository.GetById(id); //a => a.Id == id);
         }
     }
 }

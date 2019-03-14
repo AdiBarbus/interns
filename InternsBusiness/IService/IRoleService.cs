@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using InternsDataAccessLayer.Entities;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public interface IRoleBll
+    public interface IRoleService
     {
         IList<Role> GetAllRoles();
         Role GetRoleById(int id);

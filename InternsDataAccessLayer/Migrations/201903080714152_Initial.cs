@@ -65,7 +65,7 @@ namespace InternsDataAccessLayer.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.QAs",
+                "dbo.Qas",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -104,7 +104,7 @@ namespace InternsDataAccessLayer.Migrations
             //DropIndex("dbo.Addresses", new[] { "UserId" });
             DropTable("dbo.SubDomains");
             DropTable("dbo.Roles");
-            DropTable("dbo.QAs");
+            DropTable("dbo.Qas");
             DropTable("dbo.Domains");
             DropTable("dbo.Advertises");
             DropTable("dbo.Users");

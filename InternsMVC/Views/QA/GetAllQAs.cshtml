@@ -1,4 +1,4 @@
-﻿@model IEnumerable<InternsDataAccessLayer.Entities.QA>
+﻿@model IEnumerable<InternsDataAccessLayer.Entities.Qa>
 
 @{
     ViewBag.Title = "Questions and Answers";
@@ -33,12 +33,12 @@
                     @Html.DisplayFor(modelItem => item.Answer)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditQA", new {id = item.Id}) |
-                    @Html.ActionLink("Delete", "DeleteQA", new {id = item.Id})
+                    @Html.ActionLink("Edit", "EditQa", new {id = item.Id}) |
+                    @Html.ActionLink("Delete", "DeleteQa", new {id = item.Id})
                 </td>
             </tr>
         }
 
     </table>
 </div>
-<div> @Html.ActionLink("Add Q&A", "CreateQA", null, new { @class = "btn btn-default" }) </div>
+<div> @Html.ActionLink("Add Q&A", "CreateQa", null, new { @class = "btn btn-default" }) </div>

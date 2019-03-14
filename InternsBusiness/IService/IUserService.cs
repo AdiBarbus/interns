@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using InternsDataAccessLayer.Entities;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public interface IUserBll
+    public interface IUserService
     {
         IList<User> GetAllUsers();
         User GetUserById(int id);

@@ -2,7 +2,7 @@
 
 namespace InternsDataAccessLayer.Entities
 {
-    public class QA : BaseClass
+    public class Qa : BaseClass
     {
         [Required]
         public string Question { get; set; }

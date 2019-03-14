@@ -1,31 +1,31 @@
 ﻿using System.Web.Mvc;
-using InternsBusiness.Business;
+using InternsServices.Service;
 using InternsDataAccessLayer.Entities;
 
 namespace InternsMVC.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IUserBll userBll;
-        private readonly IRoleBll roleBll;
+        private readonly IUserService userService;
+        private readonly IRoleService roleService;
 
-        public UserController(IUserBll user, IRoleBll role)
+        public UserController(IUserService user, IRoleService role)
         {
-            userBll = user;
-            roleBll = role;
+            userService = user;
+            roleService = role;
         }
         
         [HttpGet]
         public ActionResult GetAllUsers()
         {
-            var getAll = userBll.GetAllUsers();
+            var getAll = userService.GetAllUsers();
             return View(getAll);
         }
         
         [HttpGet]
         public ActionResult CreateUser()
         {
-            ViewBag.Roles = roleBll.GetAllRoles();
+            ViewBag.Roles = roleService.GetAllRoles();
             return View();
         }
 
@@ -34,7 +34,7 @@ namespace InternsMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                userBll.AddUser(user);
+                userService.AddUser(user);
             }
 
             return RedirectToAction("GetAllUsers");
@@ -43,21 +43,21 @@ namespace InternsMVC.Controllers
         [HttpGet]
         public ActionResult EditUser(int id)
         {
-            var us = userBll.GetUserById(id);
+            var us = userService.GetUserById(id);
             return View(us);
         }
 
         [HttpPost]
         public ActionResult EditUser(User user)
         {
-            userBll.EditUser(user);
+            userService.EditUser(user);
             return RedirectToAction("GetAllUsers");
         }
 
         [HttpGet]
         public ActionResult DeleteUser(int id)
         {
-            userBll.DeleteUser(id);
+            userService.DeleteUser(id);
             return RedirectToAction("GetAllUsers");
         }
     }

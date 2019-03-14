@@ -2,13 +2,13 @@
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
 
-namespace InternsBusiness.Business
+namespace InternsServices.Service
 {
-    public class AdvertiseBll : IAdvertiseBll
+    public class AdvertiseService : IAdvertiseService
     {
-        private readonly IAdvertiseRepository repository;
+        private readonly IGenericRepository<Advertise> repository;
 
-        public AdvertiseBll(IAdvertiseRepository repo)
+        public AdvertiseService(IGenericRepository<Advertise> repo)
         {
             repository = repo;
         }
@@ -20,7 +20,7 @@ namespace InternsBusiness.Business
 
         public Advertise GetAdvertiseById(int id)
         {
-            return repository.GetById(a => a.Id == id);
+            return repository.GetById(id);
         }
 
         public void AddAdvertise(Advertise advertise)

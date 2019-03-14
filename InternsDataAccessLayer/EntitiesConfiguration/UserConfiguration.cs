@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using InternsDataAccessLayer.Entities;
 
-namespace InternsBusiness.EntitiesConfiguration
+namespace InternsServices.EntitiesConfiguration
 {
     static class UserConfiguration
     {

@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using InternsBusiness.Business;
+using InternsServices.Service;
 
 namespace InternsMVC.Controllers
 {
