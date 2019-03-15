@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
+using InternsServices.IService;
 
 namespace InternsServices.Service
 {

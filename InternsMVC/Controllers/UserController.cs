@@ -1,6 +1,10 @@
-﻿using System.Web.Mvc;
-using InternsServices.Service;
+﻿using System;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Web.Mvc;
+using InternsServices.IService;
 using InternsDataAccessLayer.Entities;
+using static System.String;
 
 namespace InternsMVC.Controllers
 {
@@ -16,12 +20,30 @@ namespace InternsMVC.Controllers
         }
         
         [HttpGet]
-        public ActionResult GetAllUsers()
+        public ActionResult GetAllUsers(string sortOrder, string searchString)
         {
+            ViewBag.UserNameSortParm = IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
             var getAll = userService.GetAllUsers();
-            return View(getAll);
+
+            if (!IsNullOrEmpty(searchString))
+            {
+                getAll = getAll.Where(s => s.UserName.Contains(searchString)).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    getAll = getAll.OrderByDescending(s => s.UserName).ToList();
+                    break;
+                default:
+                    getAll = getAll.OrderBy(s => s.UserName).ToList();
+                    break;
+            }
+
+            return View(getAll.ToList());
         }
-        
+
         [HttpGet]
         public ActionResult CreateUser()
         {
@@ -30,14 +52,23 @@ namespace InternsMVC.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateUser(User user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                userService.AddUser(user);
+                if (ModelState.IsValid)
+                {
+                    user.CreateDate = DateTime.Now;
+                    userService.AddUser(user);
+                    return RedirectToAction("GetAllUsers");
+                }
             }
-
-            return RedirectToAction("GetAllUsers");
+            catch (RetryLimitExceededException e)
+            {
+                throw e;
+            }
+            return View(user);
         }
 
         [HttpGet]
@@ -50,8 +81,15 @@ namespace InternsMVC.Controllers
         [HttpPost]
         public ActionResult EditUser(User user)
         {
-            userService.EditUser(user);
-            return RedirectToAction("GetAllUsers");
+            if (ModelState.IsValid)
+            {
+                userService.EditUser(user);
+                return RedirectToAction("GetAllUsers");
+            }
+            else
+            {
+                return View(user);
+            }
         }
 
         [HttpGet]
@@ -60,5 +98,11 @@ namespace InternsMVC.Controllers
             userService.DeleteUser(id);
             return RedirectToAction("GetAllUsers");
         }
+
+        //private void RoleTypesDropDownList(object roleType = null)
+        //{
+        //    var types = roleService.GetAllRoles().OrderBy(e => e.Type);
+        //    ViewBag.RoleId = new SelectList(types, "RoleId", "Type", roleType);
+        //}
     }
 }

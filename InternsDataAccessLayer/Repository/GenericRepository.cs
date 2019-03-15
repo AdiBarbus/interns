@@ -22,13 +22,14 @@ namespace InternsDataAccessLayer.Repository
             this.context = context;
             table = context.Set<T>();
         }
-
+        
     public virtual IList<T> GetAll(params Expression<Func<T, object>>[] predicate)
         {
             List<T> list;
-            using (context)
+            using (var ccontext = new AppContext())
             {
-                IQueryable<T> dbQuery = table;
+                var tablee = ccontext.Set<T>();
+                IQueryable<T> dbQuery = tablee;
 
                 //Apply eager loading
                 foreach (var item in predicate)

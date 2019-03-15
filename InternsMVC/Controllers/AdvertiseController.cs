@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using InternsServices.Service;
+using InternsServices.IService;
 using InternsDataAccessLayer.Entities;
 using InternsMVC.Models;
 

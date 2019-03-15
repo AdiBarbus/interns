@@ -2,6 +2,7 @@
 using System.Linq;
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
+using InternsServices.IService;
 
 namespace InternsServices.Service
 {

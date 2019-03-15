@@ -1,38 +1,60 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using InternsServices.Service;
 using InternsDataAccessLayer.Entities;
 using InternsMVC.Models;
+using InternsServices.IService;
+using static System.String;
 
 namespace InternsMVC.Controllers
 {
     public class DomainController : Controller
     {
         private readonly IDomainService domainService;
-        public int PageSize = 7;
+        public int PageSize = 4;
         
         public DomainController(IDomainService domain)
         {
             domainService = domain;
         }
         [HttpGet]
-        //[Route("domain/GetAllDomains/{page}")]
-        public ActionResult GetAllDomains(int page = 1)
+        public ActionResult GetAllDomains(string sortOrder, string currentFilter, string stringSearch,int page = 1)
         {
             var getAll = domainService.GetAllDomains();
 
             DomainsPagingViewModel model = new DomainsPagingViewModel
-            {
-                Domains = getAll.Skip((page - 1) * PageSize).Take(PageSize),
-                PagingInfo = new PagingInfo
                 {
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = getAll.Count()
-                }
-            };
+                    Domains = getAll.Skip((page - 1) * PageSize).Take(PageSize),
+                    PagingInfo = new PagingInfo
+                    {
+                        CurrentPage = page,
+                        ItemsPerPage = PageSize,
+                        TotalItems =
+                            stringSearch == null
+                                ? getAll.Count()
+                                : getAll.Where(s => s.Name.Contains(stringSearch)).Count()
+                    },
+                    sortingOrder = IsNullOrEmpty(sortOrder) ? "name_desc" : "",
+                    searchString = stringSearch
+                };
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    model.Domains = model.Domains.OrderByDescending(s => s.Name).ToList();
+                    break;
+                default:  // Name ascending 
+                    model.Domains = model.Domains.OrderBy(s => s.Id).ToList();
+                    break;
+            }
+
+            if (!IsNullOrEmpty(stringSearch))
+            {
+                model.Domains = domainService.GetAllDomains().Where(s => s.Name.Contains(stringSearch));
+            }
+
             return View(model);
         }
+        
         [HttpGet]
         [Route("domain/GetSubDomainByDomain/{domainId}")]
         public ActionResult GetSubDomainsByDomain(int domainId)
@@ -42,6 +64,7 @@ namespace InternsMVC.Controllers
 
             return View(byId);
         }
+
         [HttpGet]
         [Route("domain/GetAdvertisesByDomain/{domainId}")]
         public ActionResult GetAdvertisesByDomain(int domainId)
@@ -51,8 +74,7 @@ namespace InternsMVC.Controllers
 
             return View(byId);
         }
-
-
+        
         [HttpGet]
         public ActionResult CreateDomain()
         {

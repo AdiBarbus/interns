@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
-using InternsServices.Service;
+﻿using System.Linq;
+using System.Web.Mvc;
 using InternsDataAccessLayer.Entities;
+using InternsServices.IService;
+using PagedList;
+using static System.String;
 
 namespace InternsMVC.Controllers
 {
@@ -14,11 +17,47 @@ namespace InternsMVC.Controllers
             subDomainService = subDomain;
             domainService = domain;
         }
-        [HttpGet]
-        public ActionResult GetAllSubDomains()
+        //[HttpGet]
+        //public ActionResult GetAllSubDomains()
+        //{
+        //    var getAll = subDomainService.GetAllSubDomains();
+        //    return View(getAll);
+        //}
+        
+        public ViewResult GetAllSubDomains(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
             var getAll = subDomainService.GetAllSubDomains();
-            return View(getAll);
+
+            if (!IsNullOrEmpty(searchString))
+            {
+                getAll = getAll.Where(s => s.Name.Contains(searchString)).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    getAll = getAll.OrderByDescending(s => s.Name).ToList();
+                    break;
+                default:  // Name ascending 
+                    getAll = getAll.OrderBy(s => s.Id).ToList();
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(getAll.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]

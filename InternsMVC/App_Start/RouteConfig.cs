@@ -15,8 +15,12 @@ namespace InternsMVC
             //routes.MapRoute(null, "Page{page}", new { Controller = "Advertise", action = "GetAllAdvertises" });
 
             routes.MapRoute(
-                "Mazga",
+                "Page",
                 "{controller}/{action}/Page{page}"
+            );
+            routes.MapRoute(
+                "SortOrder",
+                "{controller}/{action}/Page{page}/{sortOrder}"
             );
 
             routes.MapRoute(

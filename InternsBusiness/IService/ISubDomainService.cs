@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using InternsDataAccessLayer.Entities;
 
-namespace InternsServices.Service
+namespace InternsServices.IService
 {
     public interface ISubDomainService
     {

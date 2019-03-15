@@ -7,6 +7,18 @@
 }
 <h2>Domains</h2>
 
+@using (Html.BeginForm("GetAllDomains", "Domain", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("stringSearch", @Model.searchString)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<div class="text-right">
+    @Html.ActionLink("Sort by Name Descending", "GetAllDomains", new { sortOrder = @Model.sortingOrder, currentFilter = @Model.searchString, page = @Model.PagingInfo.CurrentPage })
+</div>
+
 <div class="panel panel-default">
     <table class="table table-striped table-condensed table-bordered">
         <tr>
@@ -35,16 +47,22 @@
                 </td>
             </tr>
         }
-
     </table>
 </div>
 
-<div class="btn-group pull-right">
-    @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetAllDomains", new { page = x }))
-</div>
-
-<hr />
-
-<div>
+<span>
     @Html.ActionLink("Add Domain", "CreateDomain", null, new { @class = "btn btn-default" })
+</span>
+
+<div class="text-right">
+    <a href="javascript:history.back()">Back</a>
 </div>
+
+Page @(Model.PagingInfo.TotalPages < Model.PagingInfo.CurrentPage ? 0 : Model.PagingInfo.CurrentPage) of @Model.PagingInfo.TotalPages
+
+@if (Model.PagingInfo.TotalPages > 1)
+{
+    <div>
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetAllDomains", new { page = x }))
+    </div>
+}

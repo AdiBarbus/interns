@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
-using InternsServices.Service;
 using InternsDataAccessLayer.Entities;
+using InternsServices.IService;
 
 namespace InternsMVC.Controllers
 {

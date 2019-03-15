@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using InternsServices.IService;
 using InternsDataAccessLayer.Entities;
 using InternsDataAccessLayer.Repository;
 
