@@ -35,7 +35,7 @@ namespace InternsMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                FormsAuthentication.SetAuthCookie(userr.UserName, false);
+                FormsAuthentication.SetAuthCookie(userr.UserName, true);
                 return RedirectToAction("Index", "Home");
             }
             else

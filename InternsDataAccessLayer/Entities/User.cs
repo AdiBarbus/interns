@@ -17,6 +17,7 @@ namespace InternsDataAccessLayer.Entities
         public string Password { get; set; }
         [Required]
         [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Confirm password doesn't match, Type again !")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
