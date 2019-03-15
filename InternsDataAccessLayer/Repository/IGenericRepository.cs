@@ -18,7 +18,7 @@ namespace InternsDataAccessLayer.Repository
         ///     Gets the item with the specified id
         /// </summary>
         /// <returns> The item with the id passed as the parameter </returns>
-        T GetById(Func<T, bool> where, params Expression<Func<T, object>>[] predicate);
+        T GetById(int id);//Func<T, bool> where, params Expression<Func<T, object>>[] predicate);
 
         /// <summary>
         ///     Inserts a new object in the T table

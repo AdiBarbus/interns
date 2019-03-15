@@ -8,7 +8,7 @@ namespace InternsDataAccessLayer.Entities
         [Required]
         public string Name { get; set; }
         public ICollection<Advertise> Advertises { get; set; }
-        public ICollection<QA> QAs { get; set; }
+        public ICollection<Qa> Qas { get; set; }
         public int DomainId { get; set; }
     }
 }

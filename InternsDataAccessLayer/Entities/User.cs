@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace InternsDataAccessLayer.Entities
@@ -12,11 +13,14 @@ namespace InternsDataAccessLayer.Entities
         public string Email { get; set; }
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Password is required")]
+        [StringLength(150, MinimumLength = 6)]
         public string Password { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime? CreateDate { get; set; }
         public string Phone { get; set; }
         public string University { get; set; }
         public virtual Address Address { get; set; }

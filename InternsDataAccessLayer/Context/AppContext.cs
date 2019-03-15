@@ -16,7 +16,7 @@ namespace InternsDataAccessLayer.Context
         public DbSet<SubDomain> SubDomains { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Advertise> Advertisments { get; set; }
-        public DbSet<QA> QAs { get; set; }
+        public DbSet<Qa> QAs { get; set; }
         public DbSet<Role> Roles { get; set; }
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)

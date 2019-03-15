@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using InternsDataAccessLayer.Entities;
 
-namespace InternsBusiness.EntitiesConfiguration
+namespace InternsServices.EntitiesConfiguration
 {
     static class QAConfiguration
     {
         public static void Configure(DbModelBuilder modelBuilder)
         {
-            var entity = modelBuilder.Entity<QA>();
+            var entity = modelBuilder.Entity<Qa>();
 
             entity.Property(a => a.Id)
                 .IsRequired()

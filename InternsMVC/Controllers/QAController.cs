@@ -1,66 +1,65 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using InternsBusiness.Business;
+﻿using System.Web.Mvc;
 using InternsDataAccessLayer.Entities;
+using InternsServices.IService;
 
 namespace InternsMVC.Controllers
 {
-    public class QAController : Controller
+    public class QaController : Controller
     {
-        private readonly IQABll qaBll;
-        private readonly ISubDomainBll subDomainBll;
-        private readonly IAdvertiseBll advertiseBll;
+        private readonly IQaService iqaService;
+        private readonly ISubDomainService subDomainService;
+        private readonly IAdvertiseService advertiseService;
 
-        public QAController(IQABll qa, ISubDomainBll subDomain, IAdvertiseBll advertise)
+        public QaController(IQaService qa, ISubDomainService subDomain, IAdvertiseService advertise)
         {
-            qaBll = qa;
-            subDomainBll = subDomain;
-            advertiseBll = advertise;
+            iqaService = qa;
+            subDomainService = subDomain;
+            advertiseService = advertise;
         }
 
         [HttpGet]
-        public ActionResult GetAllQAs()
+        public ActionResult GetAllQas()
         {
-            var getAll = qaBll.GetAllQAs();
+            var getAll = iqaService.GetAllQas();
             return View(getAll);
         }
 
         [HttpGet]
-        public ActionResult CreateQA()
+        public ActionResult CreateQa()
         {
-            ViewBag.SubDomain = subDomainBll.GetAllSubDomains();
-            ViewBag.Advertise = advertiseBll.GetAllAdvertises();
+            ViewBag.SubDomain = subDomainService.GetAllSubDomains();
+            ViewBag.Advertise = advertiseService.GetAllAdvertises();
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateQA(QA qa)
+        public ActionResult CreateQa(Qa qa)
         {
-            qaBll.AddQA(qa);
+            iqaService.AddQa(qa);
 
-            return RedirectToAction("GetAllQAs");
+            return RedirectToAction("GetAllQas");
         }
 
         [HttpGet]
-        public ActionResult EditQA(int id)
+        public ActionResult EditQa(int id)
         {
-            var us = qaBll.GetQAById(id);
+            var us = iqaService.GetQAById(id);
             return View(us);
         }
 
         [HttpPost]
-        public ActionResult EditQA(QA qa)
+        public ActionResult EditQa(Qa qa)
         {
-            qaBll.EditQA(qa);
-            return RedirectToAction("GetAllQAs");
+            iqaService.EditQa(qa);
+            return RedirectToAction("GetAllQas");
         }
 
         [HttpGet]
-        public ActionResult DeleteQA(int id)
+        public ActionResult DeleteQa(int id)
         {
-            qaBll.DeleteQA(id);
-            return RedirectToAction("GetAllQAs");
+            iqaService.DeleteQa(id);
+            return RedirectToAction("GetAllQas");
         }
     }
 }
