@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data.Entity.Validation;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using InternsDataAccessLayer.Entities;
@@ -11,12 +9,10 @@ namespace InternsMVC.Controllers
     public class HomeController : Controller
     {
         private readonly IUserService userService;
-        private readonly IRoleService roleService;
 
-        public HomeController(IUserService user, IRoleService role)
+        public HomeController(IUserService user)
         {
             userService = user;
-            roleService = role;
         }
         public ActionResult Index()
         {
@@ -30,68 +26,18 @@ namespace InternsMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogIn(User userr)
+        public ActionResult LogIn(User user)
         {
-
-            if (ModelState.IsValid)
+            if (IsValid(user.UserName, user.Password))
             {
-                FormsAuthentication.SetAuthCookie(userr.UserName, true);
+                FormsAuthentication.SetAuthCookie(user.UserName, false);
                 return RedirectToAction("Index", "Home");
             }
             else
             {
                 ModelState.AddModelError("", "Login details are wrong.");
             }
-            return View(userr);
-        }
-
-        [HttpGet]
-        public ActionResult Register()
-        {
-            ViewBag.Roles = roleService.GetAllRoles();
-
-            return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult Register(User user)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                        var crypto = new SimpleCrypto.PBKDF2();
-                        var encrypPass = crypto.Compute(user.Password);
-                        user.Password = encrypPass;
-                        user.ConfirmPassword = crypto.Salt;
-                        user.CreateDate = DateTime.Now;
-
-                        userService.AddUser(user);
-                        
-                    
-                        return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Data is not correct");
-                }
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
-            return View();
+            return View(user);
         }
 
         public ActionResult LogOut()
@@ -108,7 +54,7 @@ namespace InternsMVC.Controllers
             var user = userService.GetAllUsers().FirstOrDefault(u => u.UserName == userName);
                 if (user != null)
                 {
-                    if (user.Password == crypto.Compute(password, user.ConfirmPassword))
+                    if (user.Password == crypto.Compute(password, user.PasswordSalt))
                     {
                         IsValid = true;
                     }

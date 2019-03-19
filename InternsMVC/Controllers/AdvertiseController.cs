@@ -45,6 +45,7 @@ namespace InternsMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateAdvertise()
         {
             ViewBag.Domain = domainService.GetAllDomains();
@@ -62,6 +63,7 @@ namespace InternsMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditAdvertise(int id)
         {
             var us = advertiseService.GetAdvertiseById(id);
@@ -76,6 +78,7 @@ namespace InternsMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteAdvertise(int id)
         {
             advertiseService.DeleteAdvertise(id);

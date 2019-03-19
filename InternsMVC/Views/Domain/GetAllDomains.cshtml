@@ -25,7 +25,10 @@
             <th> Id </th>
             <th> Name </th>
             <th> Go To </th>
-            <th> Actions </th>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <th> Actions </th>
+            }
         </tr>
 
         @foreach (var item in Model.Domains)
@@ -41,19 +44,23 @@
                     @Html.ActionLink("Subdomains", "GetSubDomainsByDomain", "Domain", new { domainId = item.Id }, null) |
                     @Html.ActionLink("Advertises", "GetAdvertisesByDomain", "Domain", new { domainId = item.Id }, null)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditDomain", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteDomain", new { id = item.Id })
-                </td>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "EditDomain", new {id = item.Id}) |
+                        @Html.ActionLink("Delete", "DeleteDomain", new {id = item.Id})
+                    </td>
+                }
             </tr>
         }
     </table>
 </div>
-
-<span>
-    @Html.ActionLink("Add Domain", "CreateDomain", null, new { @class = "btn btn-default" })
-</span>
-
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <span>
+        @Html.ActionLink("Add Domain", "CreateDomain", null, new {@class = "btn btn-default"})
+    </span>
+}
 <div class="text-right">
     <a href="javascript:history.back()">Back</a>
 </div>

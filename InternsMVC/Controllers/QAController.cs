@@ -25,6 +25,7 @@ namespace InternsMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateQa()
         {
             ViewBag.SubDomain = subDomainService.GetAllSubDomains();
@@ -42,6 +43,7 @@ namespace InternsMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditQa(int id)
         {
             var us = iqaService.GetQAById(id);

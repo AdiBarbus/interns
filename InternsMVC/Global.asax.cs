@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 using Autofac;
 using Autofac.Integration.Mvc;
 using InternsServices.Service;
@@ -19,6 +23,18 @@ namespace InternsMVC
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
+
+        //protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        //{
+        //    HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+        //    if (authCookie != null)
+        //    {
+        //        FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+        //        string[] roles = authTicket.UserData.Split(',');
+        //        GenericPrincipal userPrincipal = new GenericPrincipal(new GenericIdentity(authTicket.Name), roles);
+        //        Context.User = userPrincipal;
+        //    }
+        //}
 
         private void RegisterAutofac()
         {

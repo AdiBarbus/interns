@@ -16,12 +16,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.Answer)
             </th>
-            <th>
-                Actions
-            </th>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <th>
+                    Actions
+                </th>
+            }
         </tr>
 
-        @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Id)
@@ -32,13 +36,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Answer)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditQa", new {id = item.Id}) |
-                    @Html.ActionLink("Delete", "DeleteQa", new {id = item.Id})
-                </td>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "EditQa", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "DeleteQa", new { id = item.Id })
+                    </td>
+                }
             </tr>
         }
 
     </table>
 </div>
-<div> @Html.ActionLink("Add Q&A", "CreateQa", null, new { @class = "btn btn-default" }) </div>
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div> @Html.ActionLink("Add Q&A", "CreateQa", null, new {@class = "btn btn-default"}) </div>
+}
