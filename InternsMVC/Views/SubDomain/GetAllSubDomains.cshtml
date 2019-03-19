@@ -25,7 +25,10 @@
             <th>
                 Go to
             </th>
-            <th>Actions</th>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <th>Actions</th>
+            }
         </tr>
 
         @foreach (var item in Model)
@@ -40,10 +43,13 @@
                 <td>
                     @Html.ActionLink("Advertises", "GetAdvertisesByDomain", "Domain", new { domainId = item.Id }, null)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditSubDomain", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteSubDomain", new { id = item.Id })
-                </td>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "EditSubDomain", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "DeleteSubDomain", new { id = item.Id })
+                    </td>
+                }
             </tr>
         }
     </table>
@@ -58,4 +64,7 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 @Html.PagedListPager(Model, page => Url.Action("GetAllSubDomains",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
-<div> @Html.ActionLink("Add Subdomain", "CreateSubDomain", null, new { @class = "btn btn-default" }) </div>
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div> @Html.ActionLink("Add Subdomain", "CreateSubDomain", null, new {@class = "btn btn-default"}) </div>
+}

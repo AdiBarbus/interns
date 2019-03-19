@@ -23,31 +23,94 @@
                 </button>
                 @Html.ActionLink("Intrn", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-              
+            @if (!Request.IsAuthenticated)
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/Domain/GetAllDomains">Domains</a></li>
+                        <li><a href="/SubDomain/GetAllSubDomains">SubDomains</a></li>
+                        <li><a href="/Advertise/GetAllAdvertises">Advertises</a></li>
+                        <li><a href="/QA/GetAllQAs">Questions and Answers</a></li>
+
+                        <li>
+                            @Html.ActionLink("Register", "Register", "Register") 
+                        </li>
+                        <li>
+                            @Html.ActionLink("Log In", "Login", "Home")
+                        </li>
+                    </ul>
+                </div>
+            }
+
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/User/GetAllUsers">Users</a></li>
+                        <li><a href="/Domain/GetAllDomains">Domains</a></li>
+                        <li><a href="/SubDomain/GetAllSubDomains">SubDomains</a></li>
+                        <li><a href="/Advertise/GetAllAdvertises">Advertises</a></li>
+                        <li><a href="/QA/GetAllQAs">Questions and Answers</a></li>
+
+                        <li style="color: aliceblue">
+                                Hello, @Html.Encode(User.Identity.Name)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Log Out", "Logout", "Home")
+                            </li>
+                        
+                    </ul>
+                </div>
+            }
+
+            @if (Request.IsAuthenticated && !User.IsInRole("Admin"))
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/Domain/GetAllDomains">Domains</a></li>
+                        <li><a href="/SubDomain/GetAllSubDomains">SubDomains</a></li>
+                        <li><a href="/Advertise/GetAllAdvertises">Advertises</a></li>
+                        <li><a href="/QA/GetAllQAs">Questions and Answers</a></li>
+
+                        <li style="color: aliceblue">
+                            Hello, @Html.Encode(User.Identity.Name)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Log Out", "Logout", "Home")
+                        </li>
+                        
+                    </ul>
+                </div>
+            }
+
+            @*<div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="/User/GetAllUsers">Users</a></li>
                     <li><a href="/Domain/GetAllDomains">Domains</a></li>
                     <li><a href="/SubDomain/GetAllSubDomains">SubDomains</a></li>
                     <li><a href="/Advertise/GetAllAdvertises">Advertises</a></li>
                     <li><a href="/QA/GetAllQAs">Questions and Answers</a></li>
-                    <li>
-                        <div style="width:auto; background-color:aqua">  
-                            @if (Request.IsAuthenticated)  
-                            {  
-                                <strong>@Html.Encode(User.Identity.Name)</strong>  
-                                @Html.ActionLink("Log Out", "Logout", "Home")  
-                            }  
-                            else  
-                            {  
-                                @Html.ActionLink("Register", "Register", "Home")  
-                                <span> | </span>  
-                                @Html.ActionLink("Log In", "Login", "Home")  
-                            }  
-                        </div>  
-                    </li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li style="color: aliceblue">
+                            Hello, @Html.Encode(User.Identity.Name)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Log Out", "Logout", "Home")
+                        </li>
+                    }
+                    else
+                    {
+                        <li id="mydiv">
+                            @Html.ActionLink("Register", "Register", "Register") 
+                        </li>
+                        <li id="mydiv">
+                            @Html.ActionLink("Log In", "Login", "Home")
+                        </li>
+                    }
                 </ul>
-            </div>
+            </div>*@
         </div>
     </div>
 

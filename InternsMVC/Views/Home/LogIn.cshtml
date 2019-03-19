@@ -4,25 +4,38 @@
     ViewBag.Title = "LogIn";
 }
 
+<p>
+    Please enter your user name and password. @Html.ActionLink("Register", "Register", "Register") if you don't have an account.
+</p>
 
-<h2>LogIn</h2>
+
+@Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
+
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true, "Login Failed, check details");
-    <div>
+    <div class="form-horizontal">
         <fieldset>
-            <legend>Login Form</legend>
-            <div class="editor-label">@Html.LabelFor(u => u.UserName)</div>
-            <div class="editor-field">
-                @Html.TextBoxFor(u => u.UserName)
-            @Html.ValidationMessageFor(u => u.UserName)
-        </div>
-        <div class="editor-label">@Html.LabelFor(u => u.Password)</div>
-        <div class="editor-field">
-            @Html.PasswordFor(u => u.Password)
-        @Html.ValidationMessageFor(u => u.Password)
+            <legend>Account Information</legend>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="control-label col-md-2">
+                <input type="submit" value="Log In" />
+            </div>
+        </fieldset>
     </div>
-    <input type="submit" value="Log In" />
-</fieldset>
-</div>
-} 
+}

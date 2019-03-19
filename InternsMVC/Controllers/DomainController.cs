@@ -17,6 +17,7 @@ namespace InternsMVC.Controllers
             domainService = domain;
         }
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult GetAllDomains(string sortOrder, string currentFilter, string stringSearch,int page = 1)
         {
             var getAll = domainService.GetAllDomains();
@@ -29,9 +30,8 @@ namespace InternsMVC.Controllers
                         CurrentPage = page,
                         ItemsPerPage = PageSize,
                         TotalItems =
-                            stringSearch == null
-                                ? getAll.Count()
-                                : getAll.Where(s => s.Name.Contains(stringSearch)).Count()
+                            stringSearch == null ? getAll.Count() : 
+                                getAll.Count(s => s.Name.Contains(stringSearch))
                     },
                     sortingOrder = IsNullOrEmpty(sortOrder) ? "name_desc" : "",
                     searchString = stringSearch
@@ -76,6 +76,7 @@ namespace InternsMVC.Controllers
         }
         
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateDomain()
         {
             return View();
@@ -88,6 +89,7 @@ namespace InternsMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditDomain(int id)
         {
             var us = domainService.GetDomainById(id);

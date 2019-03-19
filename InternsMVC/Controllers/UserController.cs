@@ -2,6 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
 using InternsServices.IService;
 using InternsDataAccessLayer.Entities;
 using static System.String;
@@ -19,7 +20,9 @@ namespace InternsMVC.Controllers
             roleService = role;
         }
         
+
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult GetAllUsers(string sortOrder, string searchString)
         {
             ViewBag.UserNameSortParm = IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -45,6 +48,7 @@ namespace InternsMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateUser()
         {
             ViewBag.Roles = roleService.GetAllRoles();
@@ -72,6 +76,7 @@ namespace InternsMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditUser(int id)
         {
             var us = userService.GetUserById(id);
@@ -93,16 +98,11 @@ namespace InternsMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteUser(int id)
         {
             userService.DeleteUser(id);
             return RedirectToAction("GetAllUsers");
         }
-
-        //private void RoleTypesDropDownList(object roleType = null)
-        //{
-        //    var types = roleService.GetAllRoles().OrderBy(e => e.Type);
-        //    ViewBag.RoleId = new SelectList(types, "RoleId", "Type", roleType);
-        //}
     }
 }

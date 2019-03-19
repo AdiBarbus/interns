@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace InternsDataAccessLayer.Entities
 {
@@ -8,6 +9,7 @@ namespace InternsDataAccessLayer.Entities
     {
         [Display(Name = "User Name")]
         [Required(ErrorMessage = "User Name is Required")]
+        //[Remote("IsUserExists", "Register", ErrorMessage = "User Name already in use")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
@@ -17,8 +19,10 @@ namespace InternsDataAccessLayer.Entities
         public string Password { get; set; }
         [Required]
         [DataType(DataType.Password)]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Passwords do not match")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
+        public string PasswordSalt { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime? CreateDate { get; set; }
         public string Phone { get; set; }

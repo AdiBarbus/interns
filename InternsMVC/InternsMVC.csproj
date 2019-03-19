@@ -185,6 +185,7 @@
     <Compile Include="Controllers\DomainController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QAController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SubDomainController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -194,7 +195,9 @@
     <Compile Include="Models\AdvertisePagingViewModel.cs" />
     <Compile Include="Models\AdvertisePartialView.cs" />
     <Compile Include="Models\DomainsPagingViewModel.cs" />
+    <Compile Include="Models\LoginInputModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
+    <Compile Include="Models\RoleProviders.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,9 +232,10 @@
     <Content Include="Views\QA\EditQA.cshtml" />
     <Content Include="Views\Advertise\PartialAd.cshtml" />
     <Content Include="Views\Home\LogIn.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Register\Register.cshtml" />
     <Content Include="Views\Home\LogOut.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Domain\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
