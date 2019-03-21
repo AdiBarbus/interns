@@ -1,0 +1,15 @@
+﻿@model Interns.DataAccessLayer.Entities.Advertise
+
+    <div class="well">
+        <h3>
+            <strong> @Model.Title</strong>
+        </h3>
+        <span class="lead">@Model.Details</span>
+        <div class="lead">
+            <i>@Model.City</i>
+        </div>
+
+        <div class="pull-left label label-primary">Date Created: @Model.CreateDate</div>
+        <span class="pull-right label label-primary"> Application Deadline: @Model.EndDate</span>
+    </div>
+

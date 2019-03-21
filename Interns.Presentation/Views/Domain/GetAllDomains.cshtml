@@ -1,0 +1,75 @@
+﻿@*@model IEnumerable<InternsDataAccessLayer.Entities.Domain>*@
+@using Interns.Presentation.HtmlHelper
+@model Interns.Presentation.Models.GenericPagingViewModel<Interns.Core.Data.Domain>
+
+@{
+    ViewBag.Title = "Domains";
+}
+<h2>Domains</h2>
+
+@using (Html.BeginForm("GetAllDomains", "Domain", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("stringSearch", @Model.searchString)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<div class="text-right">
+    @Html.ActionLink("Sort by Name Descending", "GetAllDomains", new { sortOrder = @Model.sortingOrder, currentFilter = @Model.searchString, page = @Model.PagingInfo.CurrentPage })
+</div>
+
+<div class="panel panel-default">
+    <table class="table table-striped table-condensed table-bordered">
+        <tr>
+            <th> Id </th>
+            <th> Name </th>
+            <th> Go To </th>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <th> Actions </th>
+            }
+        </tr>
+
+        @foreach (var item in Model.Collection)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @Html.ActionLink("Subdomains", "GetSubDomainsByDomain", "Domain", new { domainId = item.Id }, null) |
+                    @Html.ActionLink("Advertises", "GetAdvertisesByDomain", "Domain", new { domainId = item.Id }, null)
+                </td>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "EditDomain", new {id = item.Id}) |
+                        @Html.ActionLink("Delete", "DeleteDomain", new {id = item.Id})
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <span>
+        @Html.ActionLink("Add Domain", "CreateDomain", null, new {@class = "btn btn-default"})
+    </span>
+}
+<div class="text-right">
+    <a href="javascript:history.back()">Back</a>
+</div>
+
+Page @(Model.PagingInfo.TotalPages < Model.PagingInfo.CurrentPage ? 0 : Model.PagingInfo.CurrentPage) of @Model.PagingInfo.TotalPages
+
+@if (Model.PagingInfo.TotalPages > 1)
+{
+    <div>
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetAllDomains", new { page = x }))
+    </div>
+}
