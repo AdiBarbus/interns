@@ -37,7 +37,7 @@
                     <td>-</td>
                 }
                 <td class="text-left">@item.Email</td>
-                <td class="text-left">@item.Role.Type</td>
+                <td class="text-left">@item.Role.Name</td>
                 <td class="text-center">
                     @Html.ActionLink("Edit", "EditUser", new { id = item.Id }, new { @class = "btn btn-sm btn-warning" })  @*, new { @class = "btn btn-default" }*@
                     @Html.ActionLink("Delete", "DeleteUser", new { id = item.Id }, new {@class="btn btn-sm btn-warning"})
@@ -46,7 +46,9 @@
         }
     </table>
 </div>
+
 <div class="text-right">
     @Html.ActionLink("Sort by User Name Descending", "GetAllUsers", new { sortOrder = ViewBag.UserNameSortParm })
 </div>
-@Html.ActionLink("Add User", "CreateUser", null, new { @class = "btn btn-default" })
+
+@*@Html.ActionLink("Add User", "CreateUser", null, new { @class = "btn btn-default" })*@

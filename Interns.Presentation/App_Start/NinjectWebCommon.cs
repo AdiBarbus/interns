@@ -1,3 +1,5 @@
+using System.Data.Entity.ModelConfiguration.Conventions;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Interns.Presentation.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Interns.Presentation.App_Start.NinjectWebCommon), "Stop")]
 
@@ -72,7 +74,6 @@ namespace Interns.Presentation.App_Start
             kernel.Bind<ISubDomainService>().To<SubDomainService>();
             kernel.Bind<IAdvertiseService>().To<AdvertiseService>();
             kernel.Bind<IQaService>().To<QAService>();
-            
         }
     }
 }

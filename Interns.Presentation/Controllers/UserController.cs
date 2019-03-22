@@ -21,7 +21,7 @@ namespace Interns.Presentation.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult GetAllUsers(string sortOrder, string searchString)
+        public ActionResult GetAllUsers(string searchString, string sortOrder)
         {
             ViewBag.UserNameSortParm = IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
@@ -47,37 +47,9 @@ namespace Interns.Presentation.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult CreateUser()
-        {
-            ViewBag.Roles = roleService.GetRoles();
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateUser(User user)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    user.CreateDate = DateTime.Now;
-                    userService.InsertUser(user);
-                    return RedirectToAction("GetAllUsers");
-                }
-            }
-            catch (RetryLimitExceededException e)
-            {
-                throw e;
-            }
-            return View(user);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
         public ActionResult EditUser(int id)
         {
-            ViewBag.Roles = roleService.GetRoles().Where(e => e.Type != "Admin");
+            ViewBag.Roles = roleService.GetRoles().Where(e => e.Name != "Admin");
 
             var us = userService.GetUser(id);
             

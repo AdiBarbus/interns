@@ -124,6 +124,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ErrorStyles.css" />
+    <Content Include="Content\internsLogo.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
@@ -160,10 +161,13 @@
     <Compile Include="HtmlHelper\PagingHelper.cs" />
     <Compile Include="Models\AdvertisePagingViewModel.cs" />
     <Compile Include="Models\AdvertisePartialView.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\GenericPagingViewModel.cs" />
     <Compile Include="Models\LoginInputModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\RoleProviders.cs" />
+    <Compile Include="Models\SelectRoleViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -186,15 +190,18 @@
     <Content Include="Views\Qa\CreateQA.cshtml" />
     <Content Include="Views\Qa\EditQA.cshtml" />
     <Content Include="Views\Qa\GetAllQAs.cshtml" />
-    <Content Include="Views\Register\Register.cshtml" />
     <Content Include="Views\SubDomain\CreateSubDomain.cshtml" />
     <Content Include="Views\SubDomain\EditSubDomain.cshtml" />
     <Content Include="Views\SubDomain\GetAdvertisesBySubDomain.cshtml" />
     <Content Include="Views\SubDomain\GetAllSubDomains.cshtml" />
-    <Content Include="Views\User\CreateUser.cshtml" />
     <Content Include="Views\User\EditUser.cshtml" />
     <Content Include="Views\User\GetAllUsers.cshtml" />
     <Content Include="Views\User\SelectRole.cshtml" />
+    <Content Include="Views\Register\SelectRole.cshtml" />
+    <Content Include="Views\Register\RegisterStudent.cshtml" />
+    <Content Include="Views\Register\RegisterCompany.cshtml" />
+    <Content Include="Views\Login\ChangePassword.cshtml" />
+    <Content Include="Views\Login\ChangePasswordSuccess.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -204,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Password\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interns.Core\Interns.Core.csproj">

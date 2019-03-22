@@ -1,6 +1,6 @@
 ﻿@using Interns.Presentation.HtmlHelper
-@*@model IEnumerable<InternsDataAccessLayer.Entities.Advertise>*@
 @model Interns.Presentation.Models.AdvertisePagingViewModel
+
 @{
     ViewBag.Title = "Advertises";
 }
@@ -12,47 +12,13 @@
     @Html.Partial("PartialAd", p)
 }
 
-@*<table class="table table-striped table-condensed table-bordered">
-        <tr>
-            <th>Title</th>
-            <th>Details</th>
-            <th>CreateDate</th>
-            <th>Deadline</th>
-            <th>City</th>
-            <th>Actions</th>
-        </tr>
+@if (Model.PagingInfo.TotalPages > 1)
+{
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetAllAdvertises", new { page = x }))
+    </div>
+}
 
-        @foreach (var item in Model.Advertises)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Details)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreateDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditAdvertise", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteAdvertise", new { id = item.Id })
-                </td>
-            </tr>
-        }
-    </table>*@
-
-<div class="btn-group pull-right">
-    @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetAllAdvertises", new { page = x }))
-</div>
-
-<hr />
 
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {

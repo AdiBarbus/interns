@@ -16,7 +16,7 @@ namespace Interns.Presentation.Models
         public override string[] GetRolesForUser(string username)
         {
             var context = new AppContext();
-            string s = context.Users.Where(x => x.UserName == username).FirstOrDefault().Role.Type;
+            string s = context.Users.Where(x => x.UserName == username).FirstOrDefault().Role.Name;
             string[] resultS = {s};
             return resultS;
         }

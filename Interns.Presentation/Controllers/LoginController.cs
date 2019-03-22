@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using Interns.Core.Data;
 using Interns.Presentation.Models;
 using Interns.Services.IService;
+using SimpleCrypto;
 
 namespace Interns.Presentation.Controllers
 {
@@ -36,6 +37,40 @@ namespace Interns.Presentation.Controllers
             return View(loginModel);
         }
 
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var crypto = new PBKDF2();
+                var user = userService.GetUsers().FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+                if (user.Password == crypto.Compute(model.OldPassword, user.PasswordSalt))
+                {
+                    user.Password = crypto.Compute(model.NewPassword);
+                    user.ConfirmPassword = crypto.Compute(model.ConfirmPassword);
+                    userService.UpdateUser(user);
+                    
+                    return RedirectToAction("ChangePasswordSuccess");
+                }
+
+                ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+            }
+
+            return View(model);
+        }
+        public ActionResult ChangePasswordSuccess()
+        {
+            return View();
+        }
+
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
@@ -44,7 +79,7 @@ namespace Interns.Presentation.Controllers
 
         private bool IsValid(string userName, string password)
         {
-            var crypto = new SimpleCrypto.PBKDF2();
+            var crypto = new PBKDF2();
             bool IsValid = false;
 
             var user = userService.GetUsers().FirstOrDefault(u => u.UserName == userName);

@@ -2,7 +2,7 @@
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
-using Interns.Core.Data;
+using Interns.Presentation.Models;
 using Interns.Services.IService;
 
 namespace Interns.Presentation.Controllers
@@ -17,22 +17,37 @@ namespace Interns.Presentation.Controllers
             userService = user;
             roleService = role;
         }
-        public JsonResult IsUserExists(string UserName)
+
+        [HttpGet]
+        public ActionResult SelectRole()
         {
-            var a = userService.GetUsers();
-            return Json(!a.Any(x => x.UserName == UserName), JsonRequestBehavior.AllowGet);
+            SelectRoleViewModel model = new SelectRoleViewModel();
+            model.Roles = roleService.GetRoles().Where(e => e.Name != "Admin").ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SelectRole(SelectRoleViewModel model)
+        {
+            if (model.SelectedRoleId == 1)
+            {
+               return RedirectToAction("RegisterStudent","Register");
+            }
+            else 
+            {
+               return RedirectToAction("RegisterCompany", "Register");
+            }
         }
 
         [HttpGet]
-        public ActionResult Register()
+        public ActionResult RegisterStudent()
         {
-            ViewBag.Roles = roleService.GetRoles().Where(e => e.Type != "Admin");
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(User user)
+        public ActionResult RegisterStudent(RegisterViewModel viewModel)
         {
             try
             {
@@ -40,17 +55,65 @@ namespace Interns.Presentation.Controllers
                 {
                     var crypto = new SimpleCrypto.PBKDF2();
 
-                    var encrypPass = crypto.Compute(user.Password);
-                    user.Password = encrypPass;
-                    user.PasswordSalt = crypto.Salt;
+                    var encrypPass = crypto.Compute(viewModel.User.Password);
+                    viewModel.User.Password = encrypPass;
+                    viewModel.User.PasswordSalt = crypto.Salt;
 
-                    var encrypPassConfirm = crypto.Compute(user.ConfirmPassword);
-                    user.ConfirmPassword = encrypPassConfirm;
+                    var encrypPassConfirm = crypto.Compute(viewModel.User.ConfirmPassword);
+                    viewModel.User.ConfirmPassword = encrypPassConfirm;
 
-                    user.CreateDate = DateTime.Now;
+                    viewModel.User.CreateDate = DateTime.Now;
+                    viewModel.User.RoleId = 1;
 
-                    userService.InsertUser(user);
+                    userService.InsertUser(viewModel.User);
 
+                    return RedirectToAction("Login", "Login");
+                }
+
+                ModelState.AddModelError("", "Data is not correct");
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                    }
+                }
+                throw;
+            }
+            return View();
+        }
+    
+
+        [HttpGet]
+        public ActionResult RegisterCompany()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterCompany(RegisterViewModel viewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var crypto = new SimpleCrypto.PBKDF2();
+
+                    var encrypPass = crypto.Compute(viewModel.User.Password);
+                    viewModel.User.Password = encrypPass;
+                    viewModel.User.PasswordSalt = crypto.Salt;
+
+                    var encrypPassConfirm = crypto.Compute(viewModel.User.ConfirmPassword);
+                    viewModel.User.ConfirmPassword = encrypPassConfirm;
+
+                    viewModel.User.CreateDate = DateTime.Now;
+                    viewModel.User.RoleId = 2;
+
+                    userService.InsertUser(viewModel.User);
 
                     return RedirectToAction("Login", "Login");
                 }

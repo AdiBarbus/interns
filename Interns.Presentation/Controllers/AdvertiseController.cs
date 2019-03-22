@@ -49,7 +49,7 @@ namespace Interns.Presentation.Controllers
         public ActionResult CreateAdvertise()
         {
             ViewBag.Domain = domainService.GetDomains();
-            ViewBag.User = userService.GetUsers().Where(e => e.Role.Type == "Company");
+            ViewBag.User = userService.GetUsers().Where(e => e.Role.Name == "Company");
             ViewBag.SubDomain = subDomainService.GetSubDomains();
 
             return View();

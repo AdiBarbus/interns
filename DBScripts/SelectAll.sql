@@ -11,3 +11,5 @@ select * from Interns.dbo.Users
 update SubDomains
 set Name = 'Subdomain22'
 where Name = 'Subdomain2'
+
+delete from Users where Email='man'

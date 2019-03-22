@@ -104,6 +104,10 @@
     <Compile Include="Migrations\201903211422532_OptionalForeignKeys.Designer.cs">
       <DependentUpon>201903211422532_OptionalForeignKeys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903220830039_ChangedRoleTypeToRoleName.cs" />
+    <Compile Include="Migrations\201903220830039_ChangedRoleTypeToRoleName.Designer.cs">
+      <DependentUpon>201903220830039_ChangedRoleTypeToRoleName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903211422532_OptionalForeignKeys.resx">
       <DependentUpon>201903211422532_OptionalForeignKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903220830039_ChangedRoleTypeToRoleName.resx">
+      <DependentUpon>201903220830039_ChangedRoleTypeToRoleName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
