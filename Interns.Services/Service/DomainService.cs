@@ -17,7 +17,7 @@ namespace Interns.Services.Service
             subDomainRepository = subDomainRepo;
             advertiseRepository = advertiseRepo;
         }
-
+        
         public IQueryable<SubDomain> GetSubDomainsByDomain(int domainId)
         {
             return subDomainRepository.GetAll().Where(e => e.DomainId == domainId);
@@ -35,7 +35,7 @@ namespace Interns.Services.Service
 
         public Domain GetDomain(int id)
         {
-            return repository.GetById(id); //a => a.Id == id);
+            return repository.GetById(id); 
         }
 
         public void InsertDomain(Domain domain)

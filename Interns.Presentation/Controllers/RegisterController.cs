@@ -2,8 +2,10 @@
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
-using Interns.Presentation.Models;
 using Interns.Services.IService;
+using Interns.Services.Models;
+using Interns.Services.Models.SelectFK;
+using SimpleCrypto;
 
 namespace Interns.Presentation.Controllers
 {
@@ -22,7 +24,7 @@ namespace Interns.Presentation.Controllers
         public ActionResult SelectRole()
         {
             SelectRoleViewModel model = new SelectRoleViewModel();
-            model.Roles = roleService.GetRoles().Where(e => e.Name != "Admin").ToList();
+            model.Roles = roleService.GetRoles().Where(e => e.Name != "Admin");
 
             return View(model);
         }
@@ -34,10 +36,8 @@ namespace Interns.Presentation.Controllers
             {
                return RedirectToAction("RegisterStudent","Register");
             }
-            else 
-            {
-               return RedirectToAction("RegisterCompany", "Register");
-            }
+
+            return RedirectToAction("RegisterCompany", "Register");
         }
 
         [HttpGet]
@@ -53,7 +53,7 @@ namespace Interns.Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var crypto = new SimpleCrypto.PBKDF2();
+                    var crypto = new PBKDF2();
 
                     var encrypPass = crypto.Compute(viewModel.User.Password);
                     viewModel.User.Password = encrypPass;
@@ -101,7 +101,7 @@ namespace Interns.Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var crypto = new SimpleCrypto.PBKDF2();
+                    var crypto = new PBKDF2();
 
                     var encrypPass = crypto.Compute(viewModel.User.Password);
                     viewModel.User.Password = encrypPass;

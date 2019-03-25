@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Interns.Core.Data;
 
-namespace Interns.Presentation.Models
+namespace Interns.Services.Models
 {
-    public class SelectRoleViewModel
+    public class RegisterViewModel
     {
+        public User User { get; set; }
         public List<Role> Roles { get; set; }
         public int SelectedRoleId { set; get; }
     }

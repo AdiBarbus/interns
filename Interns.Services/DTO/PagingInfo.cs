@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Interns.Presentation.Models
+namespace Interns.Services.DTO
 {
     public class PagingInfo
     {

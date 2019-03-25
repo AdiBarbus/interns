@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Interns.Core.Data;
 
-namespace Interns.Presentation.Models
+namespace Interns.Services.Models
 {
     public class UserModel
     {

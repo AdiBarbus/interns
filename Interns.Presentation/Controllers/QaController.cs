@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Interns.Core.Data;
 using Interns.Services.IService;
+using Interns.Services.Models.SelectFK;
 
 namespace Interns.Presentation.Controllers
 {
@@ -26,18 +27,43 @@ namespace Interns.Presentation.Controllers
         }
 
         [HttpGet]
+        public ActionResult SelectQasForeignKeys()
+        {
+            SelectQasFKs setForeignKeys = new SelectQasFKs();
+            
+            setForeignKeys.Advertises = advertiseService.GetAdvertises();
+            setForeignKeys.SubDomains = subDomainService.GetSubDomains();
+
+            return View(setForeignKeys);
+        }
+
+        [HttpPost]
+        public ActionResult SelectQasForeignKeys(SelectQasFKs model)
+        {
+            Qa qa = new Qa();
+
+            qa.AdvertiseId = model.SelectedAdvertiseId;
+            qa.SubDomainId = model.SelectedSubDomainId;
+
+            return RedirectToAction("CreateQa", new
+            {
+                qa.AdvertiseId,
+                qa.SubDomainId
+            });
+        }
+
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult CreateQa()
         {
-            ViewBag.SubDomain = subDomainService.GetSubDomains();
-            ViewBag.Advertise = advertiseService.GetAdvertises();
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateQa(Qa qa)
+        public ActionResult CreateQa(Qa qa, int advertiseId, int subDomainId)
         {
+            qa.AdvertiseId = advertiseId;
+            qa.SubDomainId = subDomainId;
             qaService.InsertQa(qa);
 
             return RedirectToAction("GetAllQas");

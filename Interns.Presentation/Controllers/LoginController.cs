@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using Interns.Presentation.Models;
+using Interns.Services.DTO;
 using Interns.Services.IService;
+using Interns.Services.Models;
 using SimpleCrypto;
 
 namespace Interns.Presentation.Controllers
@@ -29,7 +29,7 @@ namespace Interns.Presentation.Controllers
             if (IsValid(loginModel.UserName, loginModel.Password))
             {
                 FormsAuthentication.SetAuthCookie(loginModel.UserName, false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GetAllAdvertises", "Advertise");
             }
 
             ModelState.AddModelError("", "Login details are wrong.");
@@ -74,7 +74,7 @@ namespace Interns.Presentation.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("GetAllAdvertises", "Advertise");
         }
 
         private bool IsValid(string userName, string password)

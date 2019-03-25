@@ -1,10 +1,10 @@
-﻿@model Interns.Services.Models.SelectFK.SelectRoleViewModel
+﻿@model Interns.Services.Models.SelectFK.SelectDomainViewModel
 @{
-    ViewBag.Title = "Select Role";
+    ViewBag.Title = "Select Domain";
 }
 
-<h2>Please choose your role</h2>
-<hr/>
+<h2>Please choose the Domain</h2>
+<hr />
 
 @using (Html.BeginForm())
 {
@@ -16,13 +16,13 @@
 
             <div class="form-group">
                 <div class="control-label col-md-2 ">
-                    @Html.DropDownListFor(m => m.SelectedRoleId,
-                        new SelectList(Model.Roles, "Id", "Name"), "-- Select Role --")
+                    @Html.DropDownListFor(m => m.SelectedDomainId,
+                        new SelectList(Model.Domains, "Id", "Name"), "-- Select Domain --")
                 </div>
             </div>
 
             <div class="control-label col-md-2">
-                <input type="submit" value="Choose"/>
+                <input type="submit" value="Choose" />
             </div>
 
         </fieldset>

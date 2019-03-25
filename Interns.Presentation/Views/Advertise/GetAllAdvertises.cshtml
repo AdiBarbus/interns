@@ -1,15 +1,34 @@
-﻿@using Interns.Presentation.HtmlHelper
-@model Interns.Presentation.Models.AdvertisePagingViewModel
+﻿@using Interns.Presentation.Helper
+@model Interns.Services.DTO.SearchingAndPagingViewModel<Interns.Core.Data.Advertise>
 
 @{
     ViewBag.Title = "Advertises";
 }
 
-<h2>Advertises</h2>
+<a href="@Url.Action("GetAllAdvertises", "Advertise")">
+    <img src="~/Content/internsLogo.png" alt=""/>
+</a>
 
-@foreach (var p in Model.Advertises)
+@using (Html.BeginForm("GetAllAdvertises", "Advertise", FormMethod.Get))
 {
+    <div style="text-align: center; padding: 60px 0;">
+        Find by Title: @Html.TextBox("stringSearch", @Model.SearchString)
+
+        <input type="submit" value="Search" />
+    </div>
+}
+
+@foreach (var p in Model.Collection)
+{
+    if (Request.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <div class="pull-right">
+            @Html.ActionLink("Edit", "EditAdvertise", new { id = p.Id }) |
+            @Html.ActionLink("Delete", "DeleteAdvertise", new { id = p.Id })
+        </div>
+    }
     @Html.Partial("PartialAd", p)
+   
 }
 
 @if (Model.PagingInfo.TotalPages > 1)
@@ -19,8 +38,13 @@
     </div>
 }
 
+<div class="text-right">
+    @Html.ActionLink("Sort by Created Date Descending", "GetAllAdvertises", new { sortOrder = @Model.SortingOrder, currentFilter = @Model.SearchString, page = @Model.PagingInfo.CurrentPage })
+</div>
 
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <div> @Html.ActionLink("Add Advertise", "CreateAdvertise", null, new {@class = "btn btn-default"}) </div>
+    <div>
+         @Html.ActionLink("Add Advertise", "SelectAdvertisesForeignKeys", null, new {@class = "btn btn-default"})
+    </div>
 }

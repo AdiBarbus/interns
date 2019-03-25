@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Web.Mvc;
 using Interns.Core.Data;
-using Interns.Presentation.Models;
+using Interns.Services.DTO;
 using Interns.Services.IService;
+using Interns.Services.Models.SelectFK;
+using static System.String;
 
 namespace Interns.Presentation.Controllers
 {
@@ -24,40 +26,88 @@ namespace Interns.Presentation.Controllers
         }
 
         [HttpGet]
-        //[Route("advertise/GetAllAdvertises/{page}")]
-        public ActionResult GetAllAdvertises(int page = 1)
+        [AllowAnonymous]
+        public ActionResult GetAllAdvertises(string stringSearch, string sortOrder, string currentFilter, int page = 1)
         {
-            var getAll = advertiseService.GetAdvertises();
-
-            AdvertisePagingViewModel model = new AdvertisePagingViewModel()
+            var getAdvertises = advertiseService.GetAdvertises();
+            
+            SearchingAndPagingViewModel<Advertise> model = new SearchingAndPagingViewModel<Advertise>
             {
-                Advertises = getAll.OrderBy(p => p.Id).Skip((page - 1) * PageSize).Take(PageSize),
+                Collection = getAdvertises.OrderBy(p => p.Title).Skip((page - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = getAll.Count()
-                }
+                    TotalItems =
+                        stringSearch == null ? getAdvertises.Count() :
+                            getAdvertises.Count(s => s.Title.Contains(stringSearch))
+                },
+                SortingOrder = IsNullOrEmpty(sortOrder) ? "end_date" : "",
+                SearchString = stringSearch
             };
 
+            switch (sortOrder)
+            {
+                case "end_date":
+                    model.Collection = model.Collection.OrderByDescending(s => s.CreateDate);
+                    break;
+                default:  // Name ascending 
+                    model.Collection = model.Collection.OrderBy(s => s.CreateDate);
+                    break;
+            }
+
+            if (!IsNullOrEmpty(stringSearch))
+            {
+                model.Collection = getAdvertises.Where(s => s.Title.Contains(stringSearch));
+            }
+
             return View(model);
-            //return View(getAll);
+        }
+
+        [HttpGet]
+        public ActionResult SelectAdvertisesForeignKeys()
+        {
+            SelectAdvertisesFKs setForeignKeys = new SelectAdvertisesFKs();
+
+            setForeignKeys.Users = userService.GetUsers().Where(e => e.Role.Name == "Company");
+            setForeignKeys.Domains = domainService.GetDomains();
+            setForeignKeys.SubDomains = subDomainService.GetSubDomains();
+
+            return View(setForeignKeys);
+        }
+
+        [HttpPost]
+        public ActionResult SelectAdvertisesForeignKeys(SelectAdvertisesFKs model)
+        {
+            Advertise advertise = new Advertise();
+
+            advertise.DomainId = model.SelectedDomainId;
+            advertise.UserId = model.SelectedUserId;
+            advertise.SubDomainId = model.SelectedSubDomainId;
+
+            return RedirectToAction("CreateAdvertise", new
+            {
+                advertise.DomainId,
+                advertise.UserId,
+                advertise.SubDomainId
+            });
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult CreateAdvertise()
         {
-            ViewBag.Domain = domainService.GetDomains();
-            ViewBag.User = userService.GetUsers().Where(e => e.Role.Name == "Company");
-            ViewBag.SubDomain = subDomainService.GetSubDomains();
-
             return View();
         }
+
         [HttpPost]
-        public ActionResult CreateAdvertise(Advertise advertise)
+        public ActionResult CreateAdvertise(Advertise advertise, int domainId, int userId, int subDomainId)
         {
             advertise.CreateDate = DateTime.Now;
+            advertise.DomainId = domainId;
+            advertise.UserId = userId;
+            advertise.SubDomainId = subDomainId;
+
             advertiseService.InsertAdvertise(advertise);
 
             return RedirectToAction("GetAllAdvertises");
@@ -67,8 +117,8 @@ namespace Interns.Presentation.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult EditAdvertise(int id)
         {
-            var us = advertiseService.GetAdvertise(id);
-            return View(us);
+            var advertises = advertiseService.GetAdvertise(id);
+            return View(advertises);
         }
 
         [HttpPost]

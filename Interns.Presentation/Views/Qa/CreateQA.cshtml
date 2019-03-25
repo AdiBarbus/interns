@@ -12,21 +12,7 @@
 
     <div class="form-horizontal">
         <hr />
-        <div class="form-group">
-            <div class="control-label col-md-2 ">
-                @Html.DropDownListFor(m => m.SubDomainId,
-                    new SelectList(ViewBag.SubDomain, "Id", "Name"))
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="control-label col-md-2 ">
-                @Html.DropDownListFor(m => m.AdvertiseId,
-                    new SelectList(ViewBag.Advertise, "Id", "Title"))
-            </div>
-        </div>
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Question, new { @class = "control-label col-md-2" })
             <div class="col-md-10">

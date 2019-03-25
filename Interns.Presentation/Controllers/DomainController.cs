@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Interns.Core.Data;
-using Interns.Presentation.Models;
+using Interns.Services.DTO;
 using Interns.Services.IService;
 using static System.String;
 
@@ -16,34 +16,35 @@ namespace Interns.Presentation.Controllers
         {
             domainService = domain;
         }
+
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult GetAllDomains(string sortOrder, string currentFilter, string stringSearch, int page = 1)
+        public ActionResult GetAllDomains(string stringSearch, string sortOrder, string currentFilter, int page = 1)
         {
-            var getAll = domainService.GetDomains();
+            var getDomains = domainService.GetDomains();
 
-            GenericPagingViewModel<Domain> model = new GenericPagingViewModel<Domain>
+            SearchingAndPagingViewModel<Domain> model = new SearchingAndPagingViewModel<Domain>
             {
-                Collection = getAll.OrderBy(p=>p.Id).Skip((page - 1) * PageSize).Take(PageSize),
+                Collection = getDomains.OrderBy(p=>p.Name).Skip((page - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
                     TotalItems =
-                            stringSearch == null ? getAll.Count() :
-                                getAll.Count(s => s.Name.Contains(stringSearch))
+                            stringSearch == null ? getDomains.Count() :
+                                getDomains.Count(s => s.Name.Contains(stringSearch))
                 },
-                sortingOrder = IsNullOrEmpty(sortOrder) ? "name_desc" : "",
-                searchString = stringSearch
+                SortingOrder = IsNullOrEmpty(sortOrder) ? "name_desc" : "",
+                SearchString = stringSearch
             };
-
+            
             switch (sortOrder)
             {
                 case "name_desc":
                     model.Collection = model.Collection.OrderByDescending(s => s.Name);
                     break;
                 default:  // Name ascending 
-                    model.Collection = model.Collection.OrderBy(s => s.Id);
+                    model.Collection = model.Collection.OrderBy(s => s.Name);
                     break;
             }
 
@@ -54,25 +55,24 @@ namespace Interns.Presentation.Controllers
 
             return View(model);
         }
+        
 
         [HttpGet]
         [Route("domain/GetSubDomainByDomain/{domainId}")]
         public ActionResult GetSubDomainsByDomain(int domainId)
         {
-            var byId = domainService.GetSubDomainsByDomain(domainId);
-            ViewBag.DomainName = domainService.GetDomain(domainId).Name;
+            var subDomainsByDomain = domainService.GetSubDomainsByDomain(domainId);
 
-            return View(byId);
+            return View(subDomainsByDomain);
         }
 
         [HttpGet]
         [Route("domain/GetAdvertisesByDomain/{domainId}")]
         public ActionResult GetAdvertisesByDomain(int domainId)
         {
-            var byId = domainService.GetAdvertisesByDomain(domainId);
-            ViewBag.DomainName = domainService.GetDomain(domainId).Name;
+            var advertisesByDomain = domainService.GetAdvertisesByDomain(domainId);
 
-            return View(byId);
+            return View(advertisesByDomain);
         }
 
         [HttpGet]
@@ -81,6 +81,7 @@ namespace Interns.Presentation.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult CreateDomain(Domain domain)
         {
@@ -92,8 +93,8 @@ namespace Interns.Presentation.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult EditDomain(int id)
         {
-            var us = domainService.GetDomain(id);
-            return View(us);
+            var domain = domainService.GetDomain(id);
+            return View(domain);
         }
 
         [HttpPost]

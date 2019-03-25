@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Web.Mvc;
-using Interns.Presentation.Models;
+using Interns.Services.DTO;
 
-namespace Interns.Presentation.HtmlHelper
+namespace Interns.Presentation.Helper
 {
     public static class PagingHelpers
     {

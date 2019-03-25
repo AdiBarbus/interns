@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Interns.Core.Data;
+using Interns.Services.DTO;
 using Interns.Services.IService;
+using Interns.Services.Models.SelectFK;
 using PagedList;
 using static System.String;
 
@@ -14,79 +16,102 @@ namespace Interns.Presentation.Controllers
     {
         private readonly ISubDomainService subDomainService;
         private readonly IDomainService domainService;
-
+        public int PageSize = 10;
+        
         public SubDomainController(ISubDomainService subDomain, IDomainService domain)
         {
             subDomainService = subDomain;
             domainService = domain;
         }
 
-        public ViewResult GetAllSubDomains(string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult GetAllSubDomains(string stringSearch, string sortOrder, string currentFilter, int page = 1)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            var getSubDomains = subDomainService.GetSubDomains();
 
-            if (searchString != null)
+            SearchingAndPagingViewModel<SubDomain> model = new SearchingAndPagingViewModel<SubDomain>
             {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
+                Collection = getSubDomains.OrderBy(p => p.Name).Skip((page - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems =
+                        stringSearch == null ? getSubDomains.Count() :
+                            getSubDomains.Count(s => s.Name.Contains(stringSearch))
+                },
+                SortingOrder = IsNullOrEmpty(sortOrder) ? "name_desc" : "",
+                SearchString = stringSearch
+            };
 
-            ViewBag.CurrentFilter = searchString;
-            var getAll = subDomainService.GetSubDomains();
-
-            if (!IsNullOrEmpty(searchString))
-            {
-                getAll = getAll.Where(s => s.Name.Contains(searchString));
-            }
             switch (sortOrder)
             {
                 case "name_desc":
-                    getAll = getAll.OrderByDescending(s => s.Name);
+                    model.Collection = model.Collection.OrderByDescending(s => s.DomainId);
                     break;
                 default:  // Name ascending 
-                    getAll = getAll.OrderBy(s => s.Id);
+                    model.Collection = model.Collection.OrderBy(s => s.DomainId);
                     break;
             }
 
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
-            return View(getAll.ToPagedList(pageNumber, pageSize));
+            if (!IsNullOrEmpty(stringSearch))
+            {
+                model.Collection = getSubDomains.Where(s => s.Name.Contains(stringSearch));
+            }
+            return View(model);
         }
 
         [HttpGet]
         [Route("domain/GetAdvertisesBySubDomain/{domainId}")]
         public ActionResult GetAdvertisesBySubDomain(int domainId)
         {
-            var byId = subDomainService.GetAdvertisesBySubDomain(domainId);
-            ViewBag.SubDomainName = subDomainService.GetSubDomain(domainId).Name;
+            var advertisesBySubDomain = subDomainService.GetAdvertisesBySubDomain(domainId);
+            //ViewBag.SubDomainName = subDomainService.GetSubDomain(domainId).Name;
 
-            return View(byId);
+            return View(advertisesBySubDomain);
         }
+
+        [HttpGet]
+        public ActionResult SelectDomain()
+        {
+            SelectDomainViewModel model = new SelectDomainViewModel();
+            model.Domains = domainService.GetDomains();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SelectRole(SelectDomainViewModel model)
+        {
+            SubDomain subDomain = new SubDomain();
+            subDomain.DomainId = model.SelectedDomainId;
+
+            return RedirectToAction("CreateSubDomain", new
+            {
+                subDomain.DomainId
+            });
+        }
+
 
         [HttpGet]
         public ActionResult CreateSubDomain()
         {
-            ViewBag.Domain = domainService.GetDomains();
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateSubDomain(SubDomain domain)
+        public ActionResult CreateSubDomain(SubDomain subDomain, int domainId)
         {
-            subDomainService.InsertSubDomain(domain);
+            subDomain.DomainId = domainId;
+            subDomainService.InsertSubDomain(subDomain);
+
             return RedirectToAction("GetAllSubDomains");
         }
 
         [HttpGet]
         public ActionResult EditSubDomain(int id)
         {
-            var us = subDomainService.GetSubDomain(id);
-            return View(us);
+            var subDomain = subDomainService.GetSubDomain(id);
+            return View(subDomain);
         }
 
         [HttpPost]

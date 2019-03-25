@@ -4,7 +4,7 @@ using System.Web.Security;
 using AppContext = Interns.DataAccessLayer.Context.AppContext;
 
 
-namespace Interns.Presentation.Models
+namespace Interns.Presentation.Helper
 {
     public class RoleProviders : RoleProvider
     {

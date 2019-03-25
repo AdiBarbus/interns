@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Interns.Presentation.Models
+namespace Interns.Services.Models
 {
     public class ChangePasswordModel
     {

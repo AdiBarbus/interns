@@ -51,9 +51,9 @@ namespace Interns.Presentation.Controllers
         {
             ViewBag.Roles = roleService.GetRoles().Where(e => e.Name != "Admin");
 
-            var us = userService.GetUser(id);
+            var user = userService.GetUser(id);
             
-            return View(us);
+            return View(user);
         }
 
         [HttpPost]

@@ -48,6 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\SearchingAndPagingViewModel.cs" />
+    <Compile Include="DTO\PagingInfo.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\LoginInputModel.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\SelectFK\SelectAdvertisesFKs.cs" />
+    <Compile Include="Models\SelectFK\SelectDomainViewModel.cs" />
+    <Compile Include="Models\SelectFK\SelectQasFKs.cs" />
+    <Compile Include="Models\SelectFK\SelectRoleViewModel.cs" />
+    <Compile Include="Models\SortAdvertiseCriteriaViewModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Service\AddressBll.cs" />
     <Compile Include="Service\AdvertiseService.cs" />
     <Compile Include="Service\DomainService.cs" />
@@ -78,5 +89,6 @@
       <Name>Interns.DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

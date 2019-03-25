@@ -158,17 +158,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HtmlHelper\PagingHelper.cs" />
-    <Compile Include="Models\AdvertisePagingViewModel.cs" />
-    <Compile Include="Models\AdvertisePartialView.cs" />
-    <Compile Include="Models\ChangePasswordModel.cs" />
-    <Compile Include="Models\GenericPagingViewModel.cs" />
-    <Compile Include="Models\LoginInputModel.cs" />
-    <Compile Include="Models\PagingInfo.cs" />
-    <Compile Include="Models\RegisterViewModel.cs" />
-    <Compile Include="Models\RoleProviders.cs" />
-    <Compile Include="Models\SelectRoleViewModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Helper\PagingHelper.cs" />
+    <Compile Include="Helper\RoleProviders.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +193,9 @@
     <Content Include="Views\Register\RegisterCompany.cshtml" />
     <Content Include="Views\Login\ChangePassword.cshtml" />
     <Content Include="Views\Login\ChangePasswordSuccess.cshtml" />
+    <Content Include="Views\Advertise\SelectAdvertisesForeignKeys.cshtml" />
+    <Content Include="Views\Qa\SelectQasForeignKeys.cshtml" />
+    <Content Include="Views\SubDomain\SelectDomain.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,6 +1,5 @@
-﻿@*@model IEnumerable<InternsDataAccessLayer.Entities.SubDomain>*@
-@model PagedList.IPagedList<Interns.Core.Data.SubDomain>
-@using PagedList.Mvc
+﻿@model Interns.Services.DTO.SearchingAndPagingViewModel<Interns.Core.Data.SubDomain>
+@using Interns.Presentation.Helper
 
 @{
     ViewBag.Title = "Subdomains";
@@ -11,32 +10,29 @@
 @using (Html.BeginForm("GetAllSubDomains", "SubDomain", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Find by name: @Html.TextBox("stringSearch", @Model.SearchString)
         <input type="submit" value="Search" />
     </p>
 }
 
+<div class="text-right">
+    @Html.ActionLink("Sort by Name Descending", "GetAllSubDomains", new { sortOrder = @Model.SortingOrder, currentFilter = @Model.SearchString, page = @Model.PagingInfo.CurrentPage })
+</div>
+
 <div class="panel panel-default">
     <table class="table table-striped table-condensed table-bordered">
         <tr>
-            <th class="text-left">ID</th>
             <th class="text-left">Name</th>
-
-            <th>
-                Go to
-            </th>
+            <th> Go to </th>
             @if (Request.IsAuthenticated && User.IsInRole("Admin"))
             {
                 <th>Actions</th>
             }
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Collection)
         {
             <tr>
-                <td class="text-left">
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -55,16 +51,19 @@
     </table>
 </div>
 
-<div class="text-right">
-    @Html.ActionLink("Sort by Name Descending", "GetAllSubDomains", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter})
+<div class="pull-right">
+    Page @(Model.PagingInfo.TotalPages < Model.PagingInfo.CurrentPage ? 0 : Model.PagingInfo.CurrentPage) of @Model.PagingInfo.TotalPages
+
+    @if (Model.PagingInfo.TotalPages > 1)
+    {
+        <div>
+            @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetAllSubDomains", new { page = x }))
+        </div>
+    }
 </div>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("GetAllSubDomains",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <div> @Html.ActionLink("Add Subdomain", "CreateSubDomain", null, new {@class = "btn btn-default"}) </div>
+    <div> @Html.ActionLink("Add Subdomain", "CreateSubDomain", null, new { @class = "btn btn-default" }) </div>
 }

@@ -10,6 +10,7 @@ namespace Interns.Core.Data
         public string Title { get; set; }
 
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Details { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]

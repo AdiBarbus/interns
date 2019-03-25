@@ -4,18 +4,17 @@
     <h3>
         <strong> @Model.Title</strong>
     </h3>
+    
     <div class="lead">@Model.Details</div>
 
-    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-    {
-        <span class="pull-right">
-            @Html.ActionLink("Edit", "EditAdvertise", new { id = @Model.Id }) |
-            @Html.ActionLink("Delete", "DeleteAdvertise", new { id = @Model.Id })
-        </span>
-    }
-    
     <div class="lead">
         <i>@Model.City</i>
+        <span class="pull-right">
+            Domain:
+            <i>
+                @Model.Domain.Name, @Model.SubDomain.Name
+            </i>
+        </span>
     </div>
 
     <div class="pull-left label label-primary">Date Created: @Model.CreateDate</div>
