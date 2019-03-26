@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Interns.Core.Data;
-using Interns.Services.DTO;
+using Interns.Services.Helpers;
 using Interns.Services.IService;
 using Interns.Services.Models.SelectFK;
-using PagedList;
 using static System.String;
 
 namespace Interns.Presentation.Controllers

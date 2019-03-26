@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Interns.Services.DTO
+namespace Interns.Services.Helpers
 { 
     public class SearchingAndPagingViewModel<T>
     {

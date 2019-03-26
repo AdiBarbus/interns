@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Text;
 using System.Web.Mvc;
-using Interns.Services.DTO;
+using Interns.Services.Helpers;
 
 namespace Interns.Presentation.Helper
 {
     public static class PagingHelpers
     {
-        public static MvcHtmlString PageLinks(this System.Web.Mvc.HtmlHelper html, PagingInfo pagingInfo, Func<int, string> pageUrl)
+        public static MvcHtmlString PageLinks(this HtmlHelper html, PagingInfo pagingInfo, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
             for (int i = 1; i <= pagingInfo.TotalPages; i++)

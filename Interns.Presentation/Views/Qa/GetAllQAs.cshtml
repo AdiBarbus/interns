@@ -4,7 +4,15 @@
     ViewBag.Title = "Questions and Answers";
 }
 
-<h2>Questions and Answers</h2>
+<h2>Prepare for your upcoming test</h2>
+
+@using (Html.BeginForm("GetAllDomains", "Domain", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("stringSearch")
+        <input type="submit" value="Search" />
+    </p>
+}
 
 <div class="panel panel-default">
     <table class="table table-striped table-condensed table-bordered">
@@ -47,5 +55,9 @@
 
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <div> @Html.ActionLink("Add Q&A", "SelectQasForeignKeys", null, new {@class = "btn btn-default"}) </div>
+    <div> @Html.ActionLink("Add Q&A", "SelectQasForeignKeys", null, new { @class = "btn btn-default" }) </div>
 }
+
+<div class="text-right">
+    <a href="javascript:history.back()">Back</a>
+</div>

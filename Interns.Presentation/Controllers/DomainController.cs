@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Interns.Core.Data;
-using Interns.Services.DTO;
+using Interns.Services.Helpers;
 using Interns.Services.IService;
 using static System.String;
 

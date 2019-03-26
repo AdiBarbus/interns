@@ -1,4 +1,4 @@
-﻿@model Interns.Services.DTO.SearchingAndPagingViewModel<Interns.Core.Data.SubDomain>
+﻿@model Interns.Services.Helpers.SearchingAndPagingViewModel<Interns.Core.Data.SubDomain>
 @using Interns.Presentation.Helper
 
 @{
@@ -51,7 +51,7 @@
     </table>
 </div>
 
-<div class="pull-right">
+<div class="pull-left">
     Page @(Model.PagingInfo.TotalPages < Model.PagingInfo.CurrentPage ? 0 : Model.PagingInfo.CurrentPage) of @Model.PagingInfo.TotalPages
 
     @if (Model.PagingInfo.TotalPages > 1)

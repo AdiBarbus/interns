@@ -1,9 +1,9 @@
-﻿using System;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Interns.Core.Data;
+using Interns.Services.Helpers;
 using Interns.Services.IService;
+using Interns.Services.Models.SelectFK;
 using static System.String;
 
 namespace Interns.Presentation.Controllers
@@ -11,64 +11,73 @@ namespace Interns.Presentation.Controllers
     public class UserController : Controller
     {
         private readonly IUserService userService;
-        private readonly IRoleService roleService;
+        private int PageSize = 10;
 
-        public UserController(IUserService user, IRoleService role)
+        public UserController(IUserService user)
         {
             userService = user;
-            roleService = role;
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public ActionResult GetAllUsers(string searchString, string sortOrder)
+        [AllowAnonymous]
+        public ActionResult GetAllUsers(string stringSearch, string sortOrder, string currentFilter, int page = 1)
         {
-            ViewBag.UserNameSortParm = IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            var getUsers = userService.GetUsers();
 
-            var getAll = userService.GetUsers();
-
-            if (!IsNullOrEmpty(searchString))
+            SearchingAndPagingViewModel<User> model = new SearchingAndPagingViewModel<User>
             {
-                getAll = getAll.Where(s => s.UserName.Contains(searchString));
-            }
+                Collection = getUsers.OrderBy(p => p.UserName).Skip((page - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems =
+                        stringSearch == null ? getUsers.Count() :
+                            getUsers.Count(s => s.UserName.Contains(stringSearch))
+                },
+                SortingOrder = IsNullOrEmpty(sortOrder) ? "name_desc" : "",
+                SearchString = stringSearch
+            };
 
             switch (sortOrder)
             {
                 case "name_desc":
-                    getAll = getAll.OrderByDescending(s => s.UserName);
+                    model.Collection = model.Collection.OrderByDescending(s => s.UserName);
                     break;
                 default:
-                    getAll = getAll.OrderBy(s => s.UserName);
+                    model.Collection = model.Collection.OrderBy(s => s.UserName);
                     break;
             }
 
-            return View(getAll.ToList());
+            if (!IsNullOrEmpty(stringSearch))
+            {
+                model.Collection = getUsers.Where(s => s.UserName.Contains(stringSearch));
+            }
+
+            return View(model);
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult EditUser(int id)
         {
-            ViewBag.Roles = roleService.GetRoles().Where(e => e.Name != "Admin");
-
-            var user = userService.GetUser(id);
+            SelectUsersRoleFk model = new SelectUsersRoleFk();
+            model.User = userService.GetUser(id);
             
-            return View(user);
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult EditUser(User user)
         {
-
             if (ModelState.IsValid)
             {
                 userService.UpdateUser(user);
+
                 return RedirectToAction("GetAllUsers");
             }
-            else
-            {
-                return View(user);
-            }
+
+            return View(user);
         }
 
         [HttpGet]
@@ -76,6 +85,7 @@ namespace Interns.Presentation.Controllers
         public ActionResult DeleteUser(User user)
         {
             userService.DeleteUser(user);
+
             return RedirectToAction("GetAllUsers");
         }
     }

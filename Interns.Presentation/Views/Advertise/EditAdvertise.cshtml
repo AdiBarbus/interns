@@ -32,13 +32,10 @@
         </div>
         
         @Html.HiddenFor(m=>m.CreateDate)
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.CreateDate, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreateDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreateDate, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+        @Html.HiddenFor(m=>m.DomainId)
+        @Html.HiddenFor(m=>m.UserId)
+        @Html.HiddenFor(m=>m.SubDomainId)
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.EndDate, new { @class = "control-label col-md-2" })

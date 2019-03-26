@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Interns.Core.Data;
-using Interns.Services.DTO;
+using Interns.Services.Helpers;
 using Interns.Services.IService;
 using Interns.Services.Models.SelectFK;
 using static System.String;
@@ -58,7 +58,7 @@ namespace Interns.Presentation.Controllers
 
             if (!IsNullOrEmpty(stringSearch))
             {
-                model.Collection = getAdvertises.Where(s => s.Title.Contains(stringSearch));
+                model.Collection = getAdvertises.Where(s => s.Title.Contains(stringSearch) || s.User.UserName.Contains(stringSearch) || s.City.Contains(stringSearch));
             }
 
             return View(model);
@@ -124,8 +124,13 @@ namespace Interns.Presentation.Controllers
         [HttpPost]
         public ActionResult EditAdvertise(Advertise advertise)
         {
-            advertiseService.UpdateAdvertise(advertise);
-            return RedirectToAction("GetAllAdvertises");
+            if (ModelState.IsValid)
+            {
+                advertiseService.UpdateAdvertise(advertise);
+                return RedirectToAction("GetAllAdvertises");
+            }
+            return View(advertise);
+
         }
 
         [HttpGet]

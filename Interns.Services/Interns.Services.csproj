@@ -48,8 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\SearchingAndPagingViewModel.cs" />
-    <Compile Include="DTO\PagingInfo.cs" />
+    <Compile Include="Helpers\SearchingAndPagingViewModel.cs" />
+    <Compile Include="Helpers\PagingInfo.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\LoginInputModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
@@ -57,6 +57,7 @@
     <Compile Include="Models\SelectFK\SelectDomainViewModel.cs" />
     <Compile Include="Models\SelectFK\SelectQasFKs.cs" />
     <Compile Include="Models\SelectFK\SelectRoleViewModel.cs" />
+    <Compile Include="Models\SelectFK\EditUserViewModel.cs" />
     <Compile Include="Models\SortAdvertiseCriteriaViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Service\AddressBll.cs" />

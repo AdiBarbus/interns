@@ -8,7 +8,6 @@ namespace Interns.Core.Data
     {
         [Display(Name = "User Name")]
         [Required(ErrorMessage = "User Name is Required")]
-        //[Remote("IsUserExists", "Register", ErrorMessage = "User Name already in use")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Email is required")]

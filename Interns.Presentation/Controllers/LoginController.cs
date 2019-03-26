@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using Interns.Services.DTO;
 using Interns.Services.IService;
 using Interns.Services.Models;
 using SimpleCrypto;
