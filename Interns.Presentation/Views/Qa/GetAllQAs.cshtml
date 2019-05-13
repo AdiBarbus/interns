@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Interns.Core.Data.Qa>
+
+@{
+    ViewBag.Title = "Questions and Answers";
+}
+
+<h2>Prepare for your upcoming test</h2>
+
+@using (Html.BeginForm("GetAllDomains", "Domain", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("stringSearch")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<div class="panel panel-default">
+    <table class="table table-striped table-condensed table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer)
+            </th>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <th>
+                    Actions
+                </th>
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Question)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer)
+                </td>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "EditQa", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "DeleteQa", new { id = item.Id })
+                    </td>
+                }
+            </tr>
+        }
+
+    </table>
+</div>
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div> @Html.ActionLink("Add Q&A", "SelectQasForeignKeys", null, new { @class = "btn btn-default" }) </div>
+}
+
+<div class="text-right">
+    <a href="javascript:history.back()">Back</a>
+</div>
