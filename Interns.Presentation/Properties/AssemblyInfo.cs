@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile ="Web.config", Watch = true)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -21,7 +22,6 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("a774c3f9-9933-4397-ad37-23dc9f76ca31")]
-
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version

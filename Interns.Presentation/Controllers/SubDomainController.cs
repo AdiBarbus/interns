@@ -1,15 +1,19 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Interns.Core.Data;
 using Interns.Services.Helpers;
 using Interns.Services.IService;
 using Interns.Services.Models.SelectFK;
+using log4net;
 using static System.String;
 
 namespace Interns.Presentation.Controllers
 {
     public class SubDomainController : Controller
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(SubDomainController));
         private readonly ISubDomainService subDomainService;
         private readonly IDomainService domainService;
         public int PageSize = 10;
@@ -20,8 +24,10 @@ namespace Interns.Presentation.Controllers
             domainService = domain;
         }
 
-        public ActionResult GetAllSubDomains(string stringSearch, string sortOrder, string currentFilter, int page = 1)
+        public ActionResult SubDomains(string stringSearch, string sortOrder, string currentFilter, int page = 1)
         {
+            Log.Debug("Started getting all the Subdomains");
+
             var getSubDomains = subDomainService.GetSubDomains();
 
             SearchingAndPagingViewModel<SubDomain> model = new SearchingAndPagingViewModel<SubDomain>
@@ -60,8 +66,16 @@ namespace Interns.Presentation.Controllers
         [Route("domain/GetAdvertisesBySubDomain/{domainId}")]
         public ActionResult GetAdvertisesBySubDomain(int domainId)
         {
-            var advertisesBySubDomain = subDomainService.GetAdvertisesBySubDomain(domainId);
-            //ViewBag.SubDomainName = subDomainService.GetSubDomain(domainId).Name;
+            IEnumerable<Advertise> advertisesBySubDomain = new List<Advertise>();
+            try
+            {
+                advertisesBySubDomain = subDomainService.GetAdvertisesBySubDomain(domainId);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
 
             return View(advertisesBySubDomain);
         }
@@ -98,9 +112,19 @@ namespace Interns.Presentation.Controllers
         public ActionResult CreateSubDomain(SubDomain subDomain, int domainId)
         {
             subDomain.DomainId = domainId;
-            subDomainService.InsertSubDomain(subDomain);
 
-            return RedirectToAction("GetAllSubDomains");
+            Log.Debug("Creating new SubDomain");
+            try
+            {
+                subDomainService.InsertSubDomain(subDomain);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+
+            return RedirectToAction("SubDomains");
         }
 
         [HttpGet]
@@ -113,22 +137,42 @@ namespace Interns.Presentation.Controllers
         [HttpPost]
         public ActionResult EditSubDomain(SubDomain subDomain)
         {
+            Log.Debug($"Updating {subDomain.Name}");
+
             if (ModelState.IsValid)
             {
-                subDomainService.UpdateSubDomain(subDomain);
-                return RedirectToAction("GetAllSubDomains");
+                try
+                {
+                    subDomainService.UpdateSubDomain(subDomain);
+                    return RedirectToAction("SubDomains");
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e.ToString());
+                    throw;
+                }
             }
-            else
-            {
-                return View(subDomain);
-            }
+
+            return View(subDomain);
         }
 
         [HttpGet]
         public ActionResult DeleteSubDomain(SubDomain subDomain)
         {
-            subDomainService.DeleteSubDomain(subDomain);
-            return RedirectToAction("GetAllSubDomains");
+            Log.Debug($"Deleting {subDomain.Name}");
+
+            try
+            {
+                subDomainService.DeleteSubDomain(subDomain);
+                Log.Info($"{subDomain.Name} was deleted succesfully");
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+
+            return RedirectToAction("SubDomains");
         }
     }
 }

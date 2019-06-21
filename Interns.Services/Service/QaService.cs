@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Interns.Core.Data;
 using Interns.DataAccessLayer.Repository;
 using Interns.Services.IService;
@@ -16,30 +17,65 @@ namespace Interns.Services.Service
 
         public IQueryable<Qa> GetQas()
         {
-            return repository.GetAll();
+            try
+            {
+                return repository.GetAll();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Qa GetQa(int id)
         {
-            return repository.GetById(id); //a => a.Id == id);
+            try
+            {
+                return repository.GetById(id); //a => a.Id == id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void InsertQa(Qa qa)
         {
-            if (qa != null)
+            try
             {
-                repository.Insert(qa);
+                if (qa != null)
+                {
+                    repository.Insert(qa);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
         public void DeleteQa(Qa qa)
         {
-            repository.Delete(qa);
+            try
+            {
+                repository.Delete(qa);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void UpdateQa(Qa qa)
         {
-            repository.Update(qa);
+            try
+            {
+                repository.Update(qa);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

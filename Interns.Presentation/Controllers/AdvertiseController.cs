@@ -6,11 +6,13 @@ using Interns.Services.Helpers;
 using Interns.Services.IService;
 using Interns.Services.Models.SelectFK;
 using static System.String;
+using log4net;
 
 namespace Interns.Presentation.Controllers
 {
     public class AdvertiseController : Controller
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DomainController));
         private readonly IAdvertiseService advertiseService;
         private readonly IDomainService domainService;
         private readonly IUserService userService;
@@ -27,8 +29,10 @@ namespace Interns.Presentation.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult GetAllAdvertises(string stringSearch, string sortOrder, string currentFilter, int page = 1)
+        public ActionResult Advertises(string stringSearch, string sortOrder, string currentFilter, int page = 1)
         {
+            Log.Debug("Started getting all the advertises");
+
             var getAdvertises = advertiseService.GetAdvertises();
             
             SearchingAndPagingViewModel<Advertise> model = new SearchingAndPagingViewModel<Advertise>
@@ -60,7 +64,7 @@ namespace Interns.Presentation.Controllers
             {
                 model.Collection = getAdvertises.Where(s => s.Title.Contains(stringSearch) || s.User.UserName.Contains(stringSearch) || s.City.Contains(stringSearch));
             }
-
+            
             return View(model);
         }
 
@@ -108,37 +112,79 @@ namespace Interns.Presentation.Controllers
             advertise.UserId = userId;
             advertise.SubDomainId = subDomainId;
 
-            advertiseService.InsertAdvertise(advertise);
+            Log.Debug("Creating new Domain");
+            
+            try
+            {
+                advertiseService.InsertAdvertise(advertise);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
 
-            return RedirectToAction("GetAllAdvertises");
+            return RedirectToAction("Advertises");
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult EditAdvertise(int id)
         {
-            var advertises = advertiseService.GetAdvertise(id);
+            Advertise advertises = new Advertise();
+            Log.Debug($"Getting the advertise with the id:{id}");
+
+            try
+            {
+                advertises = advertiseService.GetAdvertise(id);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
             return View(advertises);
         }
 
         [HttpPost]
         public ActionResult EditAdvertise(Advertise advertise)
         {
+            Log.Debug($"Updating {advertise.Title}");
+
             if (ModelState.IsValid)
             {
-                advertiseService.UpdateAdvertise(advertise);
-                return RedirectToAction("GetAllAdvertises");
+                try
+                {
+                    advertiseService.UpdateAdvertise(advertise);
+                    return RedirectToAction("Advertises");
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e.ToString());
+                    throw;
+                }
             }
-            return View(advertise);
 
+            return View(advertise);
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteAdvertise(Advertise advertise)
         {
-            advertiseService.DeleteAdvertise(advertise);
-            return RedirectToAction("GetAllAdvertises");
+            Log.Debug($"Deleting {advertise.Title}");
+
+            try
+            {
+                advertiseService.DeleteAdvertise(advertise);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+
+            return RedirectToAction("Advertises");
         }
     }
 }

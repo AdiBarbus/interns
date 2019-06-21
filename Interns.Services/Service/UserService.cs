@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Interns.Core.Data;
 using Interns.DataAccessLayer.Repository;
 using Interns.Services.IService;
@@ -16,30 +17,65 @@ namespace Interns.Services.Service
 
         public IQueryable<User> GetUsers()
         {
-            return repository.GetAll();
+            try
+            {
+                return repository.GetAll();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public User GetUser(int id)
         {
-            return repository.GetById(id);
+            try
+            {
+                return repository.GetById(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void InsertUser(User user)
         {
-            if (user != null)
+            try
             {
-                repository.Insert(user);
+                if (user != null)
+                {
+                    repository.Insert(user);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
         public void DeleteUser(User user)
         {
-            repository.Delete(user);
+            try
+            {
+                repository.Delete(user);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void UpdateUser(User user)
         {
-            repository.Update(user);
+            try
+            {
+                repository.Update(user);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

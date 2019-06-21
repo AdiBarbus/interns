@@ -5,12 +5,15 @@ using System.Web.Mvc;
 using Interns.Services.IService;
 using Interns.Services.Models;
 using Interns.Services.Models.SelectFK;
+using log4net;
 using SimpleCrypto;
 
 namespace Interns.Presentation.Controllers
 {
     public class RegisterController : Controller
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(RegisterController));
+
         private readonly IUserService userService;
         private readonly IRoleService roleService;
 
@@ -76,14 +79,15 @@ namespace Interns.Presentation.Controllers
             {
                 foreach (var eve in e.EntityValidationErrors)
                 {
-                    Console.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+                    Log.Error($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
                     foreach (var ve in eve.ValidationErrors)
                     {
-                        Console.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                        Log.Error($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
                     }
                 }
                 throw;
             }
+
             return View();
         }
     
@@ -124,14 +128,15 @@ namespace Interns.Presentation.Controllers
             {
                 foreach (var eve in e.EntityValidationErrors)
                 {
-                    Console.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+                    Log.Error($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
                     foreach (var ve in eve.ValidationErrors)
                     {
-                        Console.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                        Log.Error($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
                     }
                 }
                 throw;
             }
+
             return View();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Interns.Core.Data;
 using Interns.DataAccessLayer.Repository;
 using Interns.Services.IService;
@@ -18,34 +19,76 @@ namespace Interns.Services.Service
 
         public IQueryable<SubDomain> GetSubDomains()
         {
-            return repository.GetAll();
+            try
+            {
+                return repository.GetAll();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public SubDomain GetSubDomain(int id)
         {
-            return repository.GetById(id); //a => a.Id == id);
+            try
+            {
+                return repository.GetById(id); //a => a.Id == id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
         public IQueryable<Advertise> GetAdvertisesBySubDomain(int domainId)
         {
-            return advertiseRepository.GetAll().Where(e => e.DomainId == domainId).Where(e => e.SubDomainId==domainId);
+            try
+            {
+                return advertiseRepository.GetAll().Where(e => e.DomainId == domainId).Where(e => e.SubDomainId == domainId);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void InsertSubDomain(SubDomain subDomain)
         {
-            if (subDomain != null)
+            try
             {
-                repository.Insert(subDomain);
+                if (subDomain != null)
+                {
+                    repository.Insert(subDomain);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
         public void DeleteSubDomain(SubDomain subDomain)
         {
-            repository.Delete(subDomain);
+            try
+            {
+                repository.Delete(subDomain);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void UpdateSubDomain(SubDomain subDomain)
         {
-            repository.Update(subDomain);
+            try
+            {
+                repository.Update(subDomain);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

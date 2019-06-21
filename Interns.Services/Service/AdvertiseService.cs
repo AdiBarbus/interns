@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Interns.Core.Data;
 using Interns.DataAccessLayer.Repository;
 using Interns.Services.IService;
@@ -16,27 +17,63 @@ namespace Interns.Services.Service
 
         public IQueryable<Advertise> GetAdvertises()
         {
-            return repository.GetAll();
+            try
+            {
+                return repository.GetAll();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Advertise GetAdvertise(int id)
         {
-            return repository.GetById(id);
+            try
+            {
+                return repository.GetById(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void InsertAdvertise(Advertise advertise)
         {
+            try
+            {
                 repository.Insert(advertise);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void DeleteAdvertise(Advertise advertise)
         {
-            repository.Delete(advertise);
+            try
+            {
+                repository.Delete(advertise);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void UpdateAdvertise(Advertise advertise)
         {
-            repository.Update(advertise);
+            try
+            {
+                repository.Update(advertise);
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

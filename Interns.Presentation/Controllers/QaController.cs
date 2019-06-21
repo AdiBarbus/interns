@@ -1,12 +1,17 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Interns.Core.Data;
 using Interns.Services.IService;
 using Interns.Services.Models.SelectFK;
+using log4net;
 
 namespace Interns.Presentation.Controllers
 {
     public class QaController : Controller
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(QaController));
+
         private readonly IQaService qaService;
         private readonly ISubDomainService subDomainService;
         private readonly IAdvertiseService advertiseService;
@@ -19,9 +24,20 @@ namespace Interns.Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllQas()
+        public ActionResult Qas()
         {
-            var qas = qaService.GetQas();
+            IEnumerable<Qa> qas = new List<Qa>();
+
+            Log.Debug("Started getting all the QAs");
+            try
+            {
+                qas = qaService.GetQas();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
 
             return View(qas);
         }
@@ -64,9 +80,19 @@ namespace Interns.Presentation.Controllers
         {
             qa.AdvertiseId = advertiseId;
             qa.SubDomainId = subDomainId;
-            qaService.InsertQa(qa);
 
-            return RedirectToAction("GetAllQas");
+            Log.Debug("Creating new Q&A");
+            try
+            {
+                qaService.InsertQa(qa);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+
+            return RedirectToAction("Qas");
         }
 
         [HttpGet]
@@ -80,15 +106,40 @@ namespace Interns.Presentation.Controllers
         [HttpPost]
         public ActionResult EditQa(Qa qa)
         {
-            qaService.UpdateQa(qa);
-            return RedirectToAction("GetAllQas");
+            Log.Debug($"Updating {qa.Question}");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    qaService.UpdateQa(qa);
+                    Log.Info($"{qa.Question} was updated succesfully");
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e.ToString());
+                    throw;
+                }
+            }
+
+            return RedirectToAction("Qas");
         }
 
         [HttpGet]
         public ActionResult DeleteQa(Qa qa)
         {
-            qaService.DeleteQa(qa);
-            return RedirectToAction("GetAllQas");
+            Log.Debug($"Deleting {qa.Question}");
+
+            try
+            {
+                qaService.DeleteQa(qa);
+                Log.Info($"{qa.Question} was deleted succesfully");
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+            return RedirectToAction("Qas");
         }
     }
 }

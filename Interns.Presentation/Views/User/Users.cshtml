@@ -5,7 +5,7 @@
 }
 <h2>Users</h2>
 
-@using (Html.BeginForm("GetAllUsers", "User", FormMethod.Get))
+@using (Html.BeginForm("Users", "User", FormMethod.Get))
 {
     <p>
         Find by name: @Html.TextBox("stringSearch", @Model.SearchString)
@@ -14,7 +14,7 @@
 }
 
 <div class="text-right">
-    @Html.ActionLink("Sort by User Name Descending", "GetAllUsers", new { sortOrder = @Model.SortingOrder, currentFilter = @Model.SearchString, page = @Model.PagingInfo.CurrentPage })
+    @Html.ActionLink("Sort by User Name Descending", "Users", new { sortOrder = @Model.SortingOrder, currentFilter = @Model.SearchString, page = @Model.PagingInfo.CurrentPage })
 </div>
 
 <div class="panel panel-default">

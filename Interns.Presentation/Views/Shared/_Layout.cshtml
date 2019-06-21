@@ -22,21 +22,20 @@
                     <span class="icon-bar"></span>
                 </button>
                 <p class = "navbar-brand">
-                    <a href="@Url.Action("GetAllAdvertises", "Advertise")">
+                    <a href="@Url.Action("Advertises", "Advertise")">
                         <img src="~/Content/internsLogo.png" alt=""/>
-                        @*<img src="~/Content/smallerLogo.png" alt=""/>*@
                     </a>
                 </p>
-                @*@Html.ActionLink("Intrn", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
+
             @if (!Request.IsAuthenticated)
             {
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/Domain/GetAllDomains">Domains</a></li>
-                        <li><a href="/SubDomain/GetAllSubDomains">SubDomains</a></li>
-                        <li><a href="/Advertise/GetAllAdvertises">Advertises</a></li>
-                        <li><a href="/QA/GetAllQAs">Questions and Answers</a></li>
+                        <li><a href="/Domain/Domains">Domains</a></li>
+                        <li><a href="/SubDomain/SubDomains">SubDomains</a></li>
+                        <li><a href="/Advertise/Advertises">Advertises</a></li>
+                        <li><a href="/QA/QAs">Questions and Answers</a></li>
                         <li style="padding-left: 400px"><a href="/Register/SelectRole"> Register </a></li>
                         <li><a href="/Login/Login"> Login </a></li>
                     </ul>
@@ -47,11 +46,11 @@
             {
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/User/GetAllUsers">Users</a></li>
-                        <li><a href="/Domain/GetAllDomains">Domains</a></li>
-                        <li><a href="/SubDomain/GetAllSubDomains">SubDomains</a></li>
-                        <li><a href="/Advertise/GetAllAdvertises">Advertises</a></li>
-                        <li><a href="/QA/GetAllQAs">Questions and Answers</a></li>
+                        <li><a href="/User/Users">Users</a></li>
+                        <li><a href="/Domain/Domains">Domains</a></li>
+                        <li><a href="/SubDomain/SubDomains">SubDomains</a></li>
+                        <li><a href="/Advertise/Advertises">Advertises</a></li>
+                        <li><a href="/QA/QAs">Questions and Answers</a></li>
                         <li style="padding-left: 300px"><a href="">Hello, @Html.Encode(User.Identity.Name)</a></li>
                         <li><a href="/Login/Logout"> Log Out </a></li>
                     </ul>
@@ -62,10 +61,10 @@
             {
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/Domain/GetAllDomains">Domains</a></li>
-                        <li><a href="/SubDomain/GetAllSubDomains">SubDomains</a></li>
-                        <li><a href="/Advertise/GetAllAdvertises">Advertises</a></li>
-                        <li><a href="/QA/GetAllQAs">Questions and Answers</a></li>
+                        <li><a href="/Domain/Domains">Domains</a></li>
+                        <li><a href="/SubDomain/SubDomains">SubDomains</a></li>
+                        <li><a href="/Advertise/Advertises">Advertises</a></li>
+                        <li><a href="/QA/QAs">Questions and Answers</a></li>
                         <li style="padding-left: 200px"><a href="">Hello, @Html.Encode(User.Identity.Name)</a></li>
                         <li><a href="/Login/ChangePassword">Change Password</a></li>
                         <li><a href="/Login/Logout"> Log Out </a></li>

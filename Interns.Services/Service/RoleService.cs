@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Interns.Core.Data;
 using Interns.DataAccessLayer.Repository;
 using Interns.Services.IService;
@@ -15,12 +16,26 @@ namespace Interns.Services.Service
         }
         public IQueryable<Role> GetRoles()
         {
-            return repository.GetAll();
+            try
+            {
+                return repository.GetAll();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Role GetRole(int id)
         {
-            return repository.GetById(id);
+            try
+            {
+                return repository.GetById(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

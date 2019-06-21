@@ -6,7 +6,7 @@
 }
 <h2>Domains</h2>
 
-@using (Html.BeginForm("GetAllDomains", "Domain", FormMethod.Get))
+@using (Html.BeginForm("Domains", "Domain", FormMethod.Get))
 {
     <p>
         Find by name: @Html.TextBox("stringSearch", @Model.SearchString)
@@ -15,7 +15,7 @@
 }
 
 <div class="text-right">
-    @Html.ActionLink("Sort by Name Descending", "GetAllDomains", new { sortOrder = @Model.SortingOrder, currentFilter = @Model.SearchString, page = @Model.PagingInfo.CurrentPage })
+    @Html.ActionLink("Sort by Name Descending", "Domains", new { sortOrder = @Model.SortingOrder, currentFilter = @Model.SearchString, page = @Model.PagingInfo.CurrentPage })
 </div>
 
 <div class="panel panel-default">
@@ -67,6 +67,6 @@ Page @(Model.PagingInfo.TotalPages < Model.PagingInfo.CurrentPage ? 0 : Model.Pa
 @if (Model.PagingInfo.TotalPages > 1)
 {
     <div>
-        @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetAllDomains", new { page = x }))
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Domains", new { page = x }))
     </div>
 }

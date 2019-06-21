@@ -21,17 +21,39 @@ namespace Interns.DataAccessLayer.Repository
         public Repository(AppContext context)
         {
             this.context = context;
-            table = context.Set<T>();
+
+            try
+            {
+                table = context.Set<T>();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public virtual IQueryable<T> GetAll()
         {
-            return table;
+            try
+            {
+                return table;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public T GetById(object id)
         {
-            return table.Find(id);
+            try
+            {
+                return table.Find(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void Insert(T item)
@@ -53,15 +75,7 @@ namespace Interns.DataAccessLayer.Repository
             }
             catch (DbEntityValidationException dbEx)
             {
-                var msg = string.Empty;
-
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                foreach (var validationError in validationErrors.ValidationErrors)
-                    msg += $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}" +
-                           Environment.NewLine;
-
-                var fail = new Exception(msg, dbEx);
-                throw fail;
+                throw dbEx;
             }
         }
 
@@ -71,7 +85,7 @@ namespace Interns.DataAccessLayer.Repository
             {
                 using (context)
                 {
-                    var entity = context.Set<T>().Where(t => t.Id == item.Id).FirstOrDefault();
+                    var entity = context.Set<T>().FirstOrDefault(t => t.Id == item.Id);
                     if (entity != null)
                     {
                         context.Entry(entity).CurrentValues.SetValues(item);
@@ -81,13 +95,7 @@ namespace Interns.DataAccessLayer.Repository
             }
             catch (DbEntityValidationException dbEx)
             {
-                var msg = string.Empty;
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                foreach (var validationError in validationErrors.ValidationErrors)
-                    msg += Environment.NewLine +
-                           $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}";
-                var fail = new Exception(msg, dbEx);
-                throw fail;
+                throw dbEx;
             }
         }
 
@@ -112,14 +120,7 @@ namespace Interns.DataAccessLayer.Repository
             }
             catch (DbEntityValidationException dbEx)
             {
-                var msg = string.Empty;
-
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                foreach (var validationError in validationErrors.ValidationErrors)
-                    msg += Environment.NewLine +
-                           $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}";
-                var fail = new Exception(msg, dbEx);
-                throw fail;
+                throw dbEx;
             }
         }
     }

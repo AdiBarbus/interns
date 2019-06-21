@@ -1,14 +1,22 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
+using AutoMapper;
 using Interns.Core.Data;
+using Interns.Presentation.DTOs;
 using Interns.Services.Helpers;
 using Interns.Services.IService;
+using log4net;
 using static System.String;
 
 namespace Interns.Presentation.Controllers
 {
     public class DomainController : Controller
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DomainController));
+
         private readonly IDomainService domainService;
         public int PageSize = 4;
 
@@ -19,10 +27,12 @@ namespace Interns.Presentation.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult GetAllDomains(string stringSearch, string sortOrder, string currentFilter, int page = 1)
+        public ActionResult Domains(string stringSearch, string sortOrder, string currentFilter, int page = 1)
         {
-            var getDomains = domainService.GetDomains();
+            Log.Debug("Started getting all the Domains");
 
+            var getDomains = domainService.GetDomains();
+            
             SearchingAndPagingViewModel<Domain> model = new SearchingAndPagingViewModel<Domain>
             {
                 Collection = getDomains.OrderBy(p=>p.Name).Skip((page - 1) * PageSize).Take(PageSize),
@@ -53,6 +63,7 @@ namespace Interns.Presentation.Controllers
                 model.Collection = domainService.GetDomains().Where(s => s.Name.Contains(stringSearch));
             }
 
+            
             return View(model);
         }
         
@@ -61,7 +72,17 @@ namespace Interns.Presentation.Controllers
         [Route("domain/GetSubDomainByDomain/{domainId}")]
         public ActionResult GetSubDomainsByDomain(int domainId)
         {
-            var subDomainsByDomain = domainService.GetSubDomainsByDomain(domainId);
+            IEnumerable<SubDomain> subDomainsByDomain = new List<SubDomain>();
+            Log.Debug($"Getting the adverise with the domain id:{domainId}");
+
+            try
+            {
+                subDomainsByDomain = domainService.GetSubDomainsByDomain(domainId);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+            }
 
             return View(subDomainsByDomain);
         }
@@ -70,7 +91,18 @@ namespace Interns.Presentation.Controllers
         [Route("domain/GetAdvertisesByDomain/{domainId}")]
         public ActionResult GetAdvertisesByDomain(int domainId)
         {
-            var advertisesByDomain = domainService.GetAdvertisesByDomain(domainId);
+            IEnumerable<Advertise> advertisesByDomain = new List<Advertise>();
+            Log.Debug($"Getting the adverise with the domain id:{domainId}");
+
+            try
+            {
+                advertisesByDomain = domainService.GetAdvertisesByDomain(domainId);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
 
             return View(advertisesByDomain);
         }
@@ -85,30 +117,77 @@ namespace Interns.Presentation.Controllers
         [HttpPost]
         public ActionResult CreateDomain(Domain domain)
         {
-            domainService.InsertDomain(domain);
-            return RedirectToAction("GetAllDomains");
+            Log.Debug("Creating new Domain");
+
+            try
+            {
+                domainService.InsertDomain(domain);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+
+            return RedirectToAction("Domains");
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult EditDomain(int id)
         {
-            var domain = domainService.GetDomain(id);
+            Domain domain = new Domain();
+
+            Log.Debug($"Getting the user with the id:{id}");
+            try
+            {
+                domain = domainService.GetDomain(id);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+
             return View(domain);
         }
 
         [HttpPost]
         public ActionResult EditDomain(Domain domain)
         {
-            domainService.UpdateDomain(domain);
-            return RedirectToAction("GetAllDomains");
+            Log.Debug($"Started to update {domain.Name}");
+
+            try
+            {
+                domainService.UpdateDomain(domain);
+                Log.Info($"{domain.Name} was succesfully updated");
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+
+            return RedirectToAction("Domains");
         }
 
         [HttpGet]
         public ActionResult DeleteDomain(Domain domain)
         {
-            domainService.DeleteDomain(domain);
-            return RedirectToAction("GetAllDomains");
+            Log.Debug($"Deleting {domain.Name}");
+
+            try
+            {
+                domainService.DeleteDomain(domain);
+                Log.Info($"{domain.Name} was deleted succesfully");
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                throw;
+            }
+
+            return RedirectToAction("Domains");
         }
     }
 }

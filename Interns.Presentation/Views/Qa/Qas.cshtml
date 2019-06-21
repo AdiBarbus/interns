@@ -4,9 +4,9 @@
     ViewBag.Title = "Questions and Answers";
 }
 
-<h2>Prepare for your upcoming test</h2>
+<h2>Prepare for an upcoming test</h2>
 
-@using (Html.BeginForm("GetAllDomains", "Domain", FormMethod.Get))
+@using (Html.BeginForm("Domains", "Domain", FormMethod.Get))
 {
     <p>
         Find by name: @Html.TextBox("stringSearch")

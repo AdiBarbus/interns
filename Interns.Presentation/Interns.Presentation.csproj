@@ -49,11 +49,17 @@
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -140,7 +146,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -156,38 +164,56 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SubDomainController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DTOs\AddressDto.cs" />
+    <Compile Include="DTOs\AdvertiseDto.cs" />
+    <Compile Include="DTOs\DomainDto.cs" />
+    <Compile Include="DTOs\QaDto.cs" />
+    <Compile Include="DTOs\RoleDto.cs" />
+    <Compile Include="DTOs\SubDomainDto.cs" />
+    <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\PagingHelper.cs" />
     <Compile Include="Helper\RoleProviders.cs" />
+    <Compile Include="Profiles\AddressProfile.cs" />
+    <Compile Include="Profiles\AdvertiseProfile.cs" />
+    <Compile Include="Profiles\DomainProfile.cs" />
+    <Compile Include="Profiles\QaProfile.cs" />
+    <Compile Include="Profiles\RoleProfile.cs" />
+    <Compile Include="Profiles\SubDomainProfile.cs" />
+    <Compile Include="Profiles\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Advertise\CreateAdvertise.cshtml" />
     <Content Include="Views\Advertise\EditAdvertise.cshtml" />
-    <Content Include="Views\Advertise\GetAllAdvertises.cshtml" />
+    <Content Include="Views\Advertise\Advertises.cshtml" />
     <Content Include="Views\Advertise\PartialAd.cshtml" />
     <Content Include="Views\Domain\CreateDomain.cshtml" />
     <Content Include="Views\Domain\EditDomain.cshtml" />
     <Content Include="Views\Domain\GetAdvertisesByDomain.cshtml" />
-    <Content Include="Views\Domain\GetAllDomains.cshtml" />
+    <Content Include="Views\Domain\Domains.cshtml" />
     <Content Include="Views\Domain\GetSubDomainsByDomain.cshtml" />
-    <Content Include="Views\Domain\Web.config" />
+    <Content Include="Views\Domain\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\LogOut.cshtml" />
     <Content Include="Views\Login\LogIn.cshtml" />
     <Content Include="Views\Qa\CreateQA.cshtml" />
     <Content Include="Views\Qa\EditQA.cshtml" />
-    <Content Include="Views\Qa\GetAllQAs.cshtml" />
+    <Content Include="Views\Qa\Qas.cshtml" />
     <Content Include="Views\SubDomain\CreateSubDomain.cshtml" />
     <Content Include="Views\SubDomain\EditSubDomain.cshtml" />
     <Content Include="Views\SubDomain\GetAdvertisesBySubDomain.cshtml" />
-    <Content Include="Views\SubDomain\GetAllSubDomains.cshtml" />
+    <Content Include="Views\SubDomain\SubDomains.cshtml" />
     <Content Include="Views\User\EditUser.cshtml" />
-    <Content Include="Views\User\GetAllUsers.cshtml" />
+    <Content Include="Views\User\Users.cshtml" />
     <Content Include="Views\User\SelectRole.cshtml" />
     <Content Include="Views\Register\SelectRole.cshtml" />
     <Content Include="Views\Register\RegisterStudent.cshtml" />

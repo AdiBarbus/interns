@@ -1,5 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using AutoMapper;
+using Interns.Core.Data;
+using Interns.Presentation.DTOs;
+using Interns.Presentation.Profiles;
 
 namespace Interns.Presentation
 {
@@ -7,8 +11,21 @@ namespace Interns.Presentation
     {
         protected void Application_Start()
         {
+            //log4net.Config.XmlConfigurator.Configure();
+
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<AddressProfile>();
+                cfg.AddProfile<AdvertiseProfile>();
+                cfg.AddProfile<DomainProfile>();
+                cfg.AddProfile<QaProfile>();
+                cfg.AddProfile<RoleProfile>();
+                cfg.AddProfile<SubDomainProfile>();
+                cfg.AddProfile<UserProfile>();
+            });
         }
     }
 }
